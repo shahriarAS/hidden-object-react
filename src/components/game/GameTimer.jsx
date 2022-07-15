@@ -21,9 +21,8 @@ const GameTimer = () => {
     } = useTimer({ expiryTimestamp: time.setSeconds(time.getSeconds() + 180), autoStart: true, onExpire: () => state.setGameOver(true) });
 
     const reduceTimeFunc = () => {
-        console.log("Reducing: ", seconds)
+        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
         restart(time.setSeconds(time.getSeconds() - (((2 - minutes) * 60) + (60 - seconds) + 10)))
-        state.setReduceTime(false)
     }
 
     useEffect(() => {
@@ -34,8 +33,9 @@ const GameTimer = () => {
         } else if (!state.gamePause || !state.gameOver) {
             resume()
         }
-        state.reduceTime ? reduceTimeFunc() : null
-    }, [state.gamePause, state.gameOver, state.reduceTime, isRunning]);
+        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
+        state.reduceTime != 0 ? reduceTimeFunc() : null
+    }, [state.gamePause, state.gameOver, state.reduceTime]);
 
     return (
         <>

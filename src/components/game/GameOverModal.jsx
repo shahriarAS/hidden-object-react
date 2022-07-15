@@ -8,6 +8,8 @@ function GameOverModal() {
     const imageRef = useRef(null);
 
     const gameContinue = () => {
+        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
+        state.setReduceTime(0)
         state.setGameOver(false)
     }
 

@@ -10,6 +10,8 @@ function GamePauseModal() {
     const state = useStore((state) => state)
 
     const gameContinue = () => {
+        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
+        state.setReduceTime(0)
         state.setGamePause(false)
     }
 
@@ -17,7 +19,11 @@ function GamePauseModal() {
         <div id="popup-modal" class={`${state.gamePause ? null : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex bg-blend-overlay bg-gray-400/80`} aria-modal="true" role="dialog">
             <div class="relative p-4 w-1/2 max-w-md h-full md:h-auto">
                 <div class="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
-                    <button type="button" class="absolute bg-transparent top-3 -right-2" onClick={() => state.setGamePause(false)}>
+                    <button type="button" class="absolute bg-transparent top-3 -right-2" onClick={() => {
+                        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
+                        state.setReduceTime(0)
+                        state.setGamePause(false)
+                    }}>
                         <img src={close} alt="" />
                     </button>
                     <div class="p-6 text-center mt-8 flex flex-col justify-between">

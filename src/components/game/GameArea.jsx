@@ -20,7 +20,6 @@ function GameArea() {
                 pauseOnHover: true,
                 draggable: true,
             })
-            state.setReduceTime(true)
             setTimeout(function () {
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
@@ -36,7 +35,7 @@ function GameArea() {
                 pauseOnHover: true,
                 draggable: true,
             })
-            state.setReduceTime(true)
+            state.setReduceTime(Math.random())
         }
     }
 
