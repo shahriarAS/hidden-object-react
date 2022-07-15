@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import bg1 from "../../assets/images/bg1.jpg";
 import useStore from "../../store";
 import getFilename from "../../utils/getFilename";
@@ -12,29 +11,31 @@ function GameArea() {
     const removeItem = (e, item) => {
         const soln = state.targetItems[`level${state.level}`].map(i => i.file)
         if (soln.includes(getFilename(item))) {
-            toast.success("Got 1 Point!", {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            })
+            // toast.success("Got 1 Point!", {
+            //     position: "top-right",
+            //     autoClose: 1000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            // })
             setTimeout(function () {
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
             }, 280);
+            // state.removeTargetItem(state.level, getFilename(item))
+            // state.addScore()
             e.target.style.visibility = "hidden"
             e.target.style.opacity = 0
         } else {
-            toast.warning("Wrong! 10 Seconds Reduced.", {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            })
+            // toast.warning("Wrong! 10 Seconds Reduced.", {
+            //     position: "top-right",
+            //     autoClose: 1000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            // })
             state.setReduceTime(Math.random())
         }
     }
