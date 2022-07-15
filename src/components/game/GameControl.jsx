@@ -13,7 +13,7 @@ function GameControl() {
     return (
         <div className="game-controls w-32 border bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center py-4 gap-4">
             <div className="control-btn bg-cover bg-no-repeat w-24 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl pl-4 transition-all delay-150 cursor-pointer hover:scale-110" style={{ backgroundImage: `url(${button})` }}>Hint</div>
-            <div className="control-btn bg-cover bg-no-repeat w-24 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl pl-4  transition-all delay-150 cursor-pointer hover:scale-110" style={{ backgroundImage: `url(${button})` }}>Pause</div>
+            <div className="control-btn bg-cover bg-no-repeat w-24 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl pl-4  transition-all delay-150 cursor-pointer hover:scale-110" style={{ backgroundImage: `url(${button})` }} onClick={() => state.setGamePause(true)}>Pause</div>
             <GameStat />
             <div className="control-panel grid grid-cols-2 gap-2 text-2xl">
                 {

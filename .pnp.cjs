@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.14"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"],\
+            ["react-timer-hook", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5"],\
             ["simple-zustand-devtools", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:1.1.0"],\
             ["tailwindcss", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.1.6"],\
             ["vite", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.0"],\
@@ -1603,6 +1604,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.14"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"],\
+            ["react-timer-hook", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5"],\
             ["simple-zustand-devtools", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:1.1.0"],\
             ["tailwindcss", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.1.6"],\
             ["vite", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.0"],\
@@ -2420,6 +2422,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-refresh-npm-0.14.0-78ef5eeb73-dc69fa8c99.zip/node_modules/react-refresh/",\
           "packageDependencies": [\
             ["react-refresh", "npm:0.14.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-timer-hook", [\
+        ["npm:3.0.5", {\
+          "packageLocation": "./.yarn/cache/react-timer-hook-npm-3.0.5-59932aed8d-4464f10c21.zip/node_modules/react-timer-hook/",\
+          "packageDependencies": [\
+            ["react-timer-hook", "npm:3.0.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5", {\
+          "packageLocation": "./.yarn/__virtual__/react-timer-hook-virtual-0a2cc4e26c/0/cache/react-timer-hook-npm-3.0.5-59932aed8d-4464f10c21.zip/node_modules/react-timer-hook/",\
+          "packageDependencies": [\
+            ["react-timer-hook", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5"],\
+            ["@types/react", "npm:18.0.15"],\
+            ["@types/react-dom", "npm:18.0.6"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
