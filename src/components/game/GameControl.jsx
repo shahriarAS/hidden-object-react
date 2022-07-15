@@ -7,7 +7,7 @@ import sound2 from "../../assets/images/sound2.png";
 import useStore from "../../store";
 import GameStat from "./GameStat";
 
-function GameControl() {
+function GameControl({ goFullScreen, closeScreen }) {
     const state = useStore((state) => state)
 
     return (
@@ -26,7 +26,13 @@ function GameControl() {
                 {
                     state.isMusic ? (<img onClick={state.toggleMusic} src={music1} width={40} alt="Music" className="cursor-pointer" />) : (<img onClick={state.toggleMusic} src={music2} width={40} alt="No Music" className="cursor-pointer" />)
                 }
-                <img src={fullscreenOn} width={40} alt="Full Screen" className="cursor-pointer" />
+                {
+                    state.isFullScreen ? (
+                        <img src={fullscreenOn} onClick={goFullScreen} width={40} alt="Full Screen" className="cursor-pointer" />
+                    ) : (
+                        <img src={fullscreenOn} onClick={closeScreen} width={40} alt="Full Screen" className="cursor-pointer" />
+                    )
+                }
             </div>
         </div>
     );

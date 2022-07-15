@@ -1342,6 +1342,7 @@ __metadata:
     postcss: ^8.4.14
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-easyfullscreen: ^1.1.2
     react-hot-toast: ^2.3.0
     react-timer-hook: ^3.0.5
     simple-zustand-devtools: ^1.1.0
@@ -2002,6 +2003,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-easyfullscreen@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "react-easyfullscreen@npm:1.1.2"
+  dependencies:
+    screenfull: ^5.0.2
+  checksum: 002bc7647459a790916db2c0d6f87cdd3822c453ebb237e48259aa9d8fd18cc20dac2340e87d03257dfebd76b7acbf2d8baf9be5951f48f1eced154077807867
+  languageName: node
+  linkType: hard
+
 "react-hot-toast@npm:^2.3.0":
   version: 2.3.0
   resolution: "react-hot-toast@npm:2.3.0"
@@ -2170,6 +2180,13 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"screenfull@npm:^5.0.2":
+  version: 5.2.0
+  resolution: "screenfull@npm:5.2.0"
+  checksum: 21eae33b780eb4679ea0ea2d14734b11168cf35049c45a2bf24ddeb39c67a788e7a8fb46d8b61ca6d8367fd67ce9dd4fc8bfe476489249c7189c2a79cf83f51a
   languageName: node
   linkType: hard
 
