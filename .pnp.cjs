@@ -41,8 +41,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.14"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"],\
+            ["react-hot-toast", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:2.3.0"],\
             ["react-timer-hook", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5"],\
-            ["react-toastify", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:9.0.5"],\
             ["simple-zustand-devtools", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:1.1.0"],\
             ["tailwindcss", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.1.6"],\
             ["vite", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.0"],\
@@ -962,15 +962,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["clsx", [\
-        ["npm:1.2.1", {\
-          "packageLocation": "./.yarn/cache/clsx-npm-1.2.1-77792dc182-30befca801.zip/node_modules/clsx/",\
-          "packageDependencies": [\
-            ["clsx", "npm:1.2.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["color-convert", [\
         ["npm:1.9.3", {\
           "packageLocation": "./.yarn/cache/color-convert-npm-1.9.3-1fe690075e-fd7a64a17c.zip/node_modules/color-convert/",\
@@ -1566,6 +1557,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["goober", [\
+        ["npm:2.1.10", {\
+          "packageLocation": "./.yarn/cache/goober-npm-2.1.10-8d98e7ad4b-55a353a477.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "npm:2.1.10"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:08dddc16b0a9d968f32d182beaf119c6cca95e14501cf6a7febec775e5def875500221326a0061b67a3c38b5ee45513525395c1e1004a73a30e22b095811b4c0#npm:2.1.10", {\
+          "packageLocation": "./.yarn/__virtual__/goober-virtual-2c7e0ae61b/0/cache/goober-npm-2.1.10-8d98e7ad4b-55a353a477.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "virtual:08dddc16b0a9d968f32d182beaf119c6cca95e14501cf6a7febec775e5def875500221326a0061b67a3c38b5ee45513525395c1e1004a73a30e22b095811b4c0#npm:2.1.10"],\
+            ["@types/csstype", null],\
+            ["csstype", null]\
+          ],\
+          "packagePeers": [\
+            "@types/csstype",\
+            "csstype"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["graceful-fs", [\
         ["npm:4.2.10", {\
           "packageLocation": "./.yarn/cache/graceful-fs-npm-4.2.10-79c70989ca-3f109d70ae.zip/node_modules/graceful-fs/",\
@@ -1616,8 +1629,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.14"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"],\
+            ["react-hot-toast", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:2.3.0"],\
             ["react-timer-hook", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5"],\
-            ["react-toastify", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:9.0.5"],\
             ["simple-zustand-devtools", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:1.1.0"],\
             ["tailwindcss", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.1.6"],\
             ["vite", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.0"],\
@@ -2439,6 +2452,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-hot-toast", [\
+        ["npm:2.3.0", {\
+          "packageLocation": "./.yarn/cache/react-hot-toast-npm-2.3.0-83d01dff31-d2526f4bf6.zip/node_modules/react-hot-toast/",\
+          "packageDependencies": [\
+            ["react-hot-toast", "npm:2.3.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:2.3.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-hot-toast-virtual-08dddc16b0/0/cache/react-hot-toast-npm-2.3.0-83d01dff31-d2526f4bf6.zip/node_modules/react-hot-toast/",\
+          "packageDependencies": [\
+            ["react-hot-toast", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:2.3.0"],\
+            ["@types/react", "npm:18.0.15"],\
+            ["@types/react-dom", "npm:18.0.6"],\
+            ["goober", "virtual:08dddc16b0a9d968f32d182beaf119c6cca95e14501cf6a7febec775e5def875500221326a0061b67a3c38b5ee45513525395c1e1004a73a30e22b095811b4c0#npm:2.1.10"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-refresh", [\
         ["npm:0.14.0", {\
           "packageLocation": "./.yarn/cache/react-refresh-npm-0.14.0-78ef5eeb73-dc69fa8c99.zip/node_modules/react-refresh/",\
@@ -2462,33 +2502,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-timer-hook", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:3.0.5"],\
             ["@types/react", "npm:18.0.15"],\
             ["@types/react-dom", "npm:18.0.6"],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react",\
-            "react-dom",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["react-toastify", [\
-        ["npm:9.0.5", {\
-          "packageLocation": "./.yarn/cache/react-toastify-npm-9.0.5-9d43decd84-5baf2705e2.zip/node_modules/react-toastify/",\
-          "packageDependencies": [\
-            ["react-toastify", "npm:9.0.5"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:9.0.5", {\
-          "packageLocation": "./.yarn/__virtual__/react-toastify-virtual-ab18223999/0/cache/react-toastify-npm-9.0.5-9d43decd84-5baf2705e2.zip/node_modules/react-toastify/",\
-          "packageDependencies": [\
-            ["react-toastify", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:9.0.5"],\
-            ["@types/react", "npm:18.0.15"],\
-            ["@types/react-dom", "npm:18.0.6"],\
-            ["clsx", "npm:1.2.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:c8905aa8c1d426ad5fe11fdfb8e1e70f732132ca144bc392edf09c51cbdba81061040dd83ba302b8e89f6cf665a916c912666cf04430e1b86987fe49a085ca9a#npm:18.2.0"]\
           ],\

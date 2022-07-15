@@ -743,13 +743,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.1.1":
-  version: 1.2.1
-  resolution: "clsx@npm:1.2.1"
-  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
-  languageName: node
-  linkType: hard
-
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -1298,6 +1291,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.1.10":
+  version: 2.1.10
+  resolution: "goober@npm:2.1.10"
+  peerDependencies:
+    csstype: ^3.0.10
+  checksum: 55a353a477665ea3ae748153132a32184a6a0db42b24ec66cdca97d1e046a2b63af29f698e245fe2f51c05d0eaefeda2cce4a106bc2b6293ea67490c39b6b5c8
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.2.6":
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
@@ -1340,8 +1342,8 @@ __metadata:
     postcss: ^8.4.14
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-hot-toast: ^2.3.0
     react-timer-hook: ^3.0.5
-    react-toastify: ^9.0.5
     simple-zustand-devtools: ^1.1.0
     tailwindcss: ^3.1.6
     vite: ^3.0.0
@@ -2000,6 +2002,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hot-toast@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "react-hot-toast@npm:2.3.0"
+  dependencies:
+    goober: ^2.1.10
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: d2526f4bf62d94ca1874de1d618e30537aa8123b5d954cf1ff4e41f063d4ab410fc4f10a0ad134d533c1e0ae3d910af1d21f5a4f37f46dcbdb1710380cbb4bc1
+  languageName: node
+  linkType: hard
+
 "react-refresh@npm:^0.14.0":
   version: 0.14.0
   resolution: "react-refresh@npm:0.14.0"
@@ -2014,18 +2028,6 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: 4464f10c21df41ae0c97ebadcc52bffcef9177f3d298b5726f041f509c05f985898cafdea766f9cc0f4d64a7a0c711e9c78256fba5992ee8826d8efd18f363ed
-  languageName: node
-  linkType: hard
-
-"react-toastify@npm:^9.0.5":
-  version: 9.0.5
-  resolution: "react-toastify@npm:9.0.5"
-  dependencies:
-    clsx: ^1.1.1
-  peerDependencies:
-    react: ">=16"
-    react-dom: ">=16"
-  checksum: 5baf2705e20e698619fdffe9fba89d55bd4314ab49075704522a2166fcb6b17d9d34781cef937e818d583a410d11b37bfe6ed8a02638b08a672998741cf40e1c
   languageName: node
   linkType: hard
 
