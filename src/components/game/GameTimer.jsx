@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import statBG from "../../assets/images/stat-bg.png";
 import useStore from "../../store";
@@ -16,13 +17,17 @@ const GameTimer = () => {
         pause,
         resume,
         restart,
-    } = useTimer({ expiryTimestamp: time.setSeconds(time.getSeconds() + 4), autoStart: true, onExpire: () => state.setGameOver(true) });
+    } = useTimer({ expiryTimestamp: time.setSeconds(time.getSeconds() + 180), autoStart: true, onExpire: () => state.setGameOver(true) });
 
-    // useEffect(() => {
-    //     if (!isRunning) {
-    //         state.setGameOver(true)
-    //     }
-    // }, [isRunning]);
+    useEffect(() => {
+        if (state.gamePause || state.gameOver) {
+            // Remain Time = Total Time - Passed Time
+            state.setTime([2 - minutes, 60 - seconds])
+            pause()
+        } else if (!state.gamePause || !state.gameOver) {
+            resume()
+        }
+    }, [state.gamePause, state.gameOver]);
 
     return (
         <>

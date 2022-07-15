@@ -11,6 +11,10 @@ const useStore = create(set => ({
     addLevel: () => set(state => ({
         level: state.level + 1
     })),
+    time: [0, 0],
+    setTime: (time) => set(state => ({
+        time: time
+    })),
     isSound: true,
     toggleSound: () => set(state => ({
         isSound: !state.isSound
@@ -62,10 +66,6 @@ const useStore = create(set => ({
     gameWon: false,
     setGameWon: (val) => set(state => ({
         gameWon: val
-    })),
-    gameResume: false,
-    setGameResume: (val) => set(state => ({
-        gameResume: val
     })),
 }));
 
