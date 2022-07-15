@@ -12,7 +12,7 @@ function GameArea() {
     const removeItem = (e, item) => {
         const soln = state.targetItems[`level${state.level}`].map(i => i.file)
         if (soln.includes(getFilename(item))) {
-            toast.success('Got 1 Point!')
+            toast.success('Correct! Got 1 Point.')
             setTimeout(function () {
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
