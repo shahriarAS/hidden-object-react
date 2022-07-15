@@ -27,7 +27,22 @@ function GameArea() {
 
     useEffect(() => {
         setImgItemState([])
-        for (let i = 1; i < 3; i++) {
+
+        var levelList = [];
+        for (let i = 0, j = 3; i < j; i++) {
+            let randNumber = Math.round(Math.random() * state.maxLevel)
+            if (!levelList.includes(randNumber) & randNumber > 0) {
+                levelList.push(randNumber)
+            } else {
+                i--
+            }
+        }
+        if (!levelList.includes(parseInt(state.level))) {
+            levelList.push(parseInt(state.level))
+        }
+        console.log(levelList)
+
+        levelList.forEach(i => {
             state.targetItems[`level${i}`].forEach(imgName => {
                 import(`../../assets/images/${imgName.file}.png`).then(image => {
                     setImgItemState(prevState => (
@@ -36,7 +51,10 @@ function GameArea() {
                 }
                 )
             });
-        }
+        })
+        // for (let i = 1; i < (state.maxLevel + 1); i++) {
+
+        // }
         console.log("FIRE ONCE")
     }, []);
 

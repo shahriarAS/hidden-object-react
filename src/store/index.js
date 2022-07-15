@@ -1,32 +1,20 @@
 // store/index.js
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
+import generatePosition from '../utils/generatePosition';
 
-const useStore = create(set => ({
+const initialState = {
     score: 0,
-    addScore: () => set(state => ({
-        score: state.score + 1
-    })),
-    level: 1,
-    addLevel: () => set(state => ({
-        level: state.level + 1
-    })),
+    maxLevel: 7,
+    level: localStorage.getItem('gameLevel') || 1,
     time: [0, 0],
-    setTime: (time) => set(state => ({
-        time: time
-    })),
     isSound: true,
-    toggleSound: () => set(state => ({
-        isSound: !state.isSound
-    })),
     isMusic: true,
-    toggleMusic: () => set(state => ({
-        isMusic: !state.isMusic
-    })),
     isFullScreen: true,
-    toggleFullScreen: () => set(state => ({
-        isFullScreen: !state.isFullScreen
-    })),
+    gameOver: false,
+    gamePause: false,
+    gameWon: false,
+    reduceTime: false,
     targetItems: {
         level1: [
             { file: "1_1", position: [54, 40] },
@@ -44,7 +32,70 @@ const useStore = create(set => ({
             { file: "2_5", position: [77, 24] },
             { file: "2_6", position: [79, 42] },
         ],
+        level3: [
+            { file: "1_7", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_8", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_9", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_10", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_11", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_12", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+        ],
+        level4: [
+            { file: "2_7", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_8", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_9", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_10", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_11", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_12", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+        ],
+        level5: [
+            { file: "1_13", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_14", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_15", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_16", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_17", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_18", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+        ],
+        level6: [
+            { file: "1_19", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_20", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_21", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_22", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_23", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_24", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+        ],
+        level7: [
+            { file: "1_25", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_26", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_27", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_28", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_29", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_13", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+        ],
     },
+}
+
+const useStore = create(set => ({
+    ...initialState,
+    addScore: () => set(state => ({
+        score: state.score + 1
+    })),
+    addLevel: () => set(state => ({
+        level: state.level + 1
+    })),
+    setTime: (time) => set(state => ({
+        time: time
+    })),
+    toggleSound: () => set(state => ({
+        isSound: !state.isSound
+    })),
+    toggleMusic: () => set(state => ({
+        isMusic: !state.isMusic
+    })),
+    toggleFullScreen: () => set(state => ({
+        isFullScreen: !state.isFullScreen
+    })),
+
     removeTargetItem: (level, toRemove) => set(state => ({
         targetItems: {
             ...state.targetItems,
@@ -52,49 +103,19 @@ const useStore = create(set => ({
         }
 
     })),
-    gameOver: false,
     setGameOver: (val) => set(state => ({
         gameOver: val
     })),
-    gamePause: false,
     setGamePause: (val) => set(state => ({
         gamePause: val
     })),
-    gameWon: false,
     setGameWon: (val) => set(state => ({
         gameWon: val
     })),
-    reduceTime: false,
     setReduceTime: (val) => set(state => ({
         reduceTime: val
     })),
-    resetState: () => set(state => ({
-        score: 0,
-        level: 1,
-        time: [0, 0], 
-        targetItems: {
-            level1: [
-                { file: "1_1", position: [54, 40] },
-                { file: "1_2", position: [19.5, 18.5] },
-                { file: "1_3", position: [50, 8] },
-                { file: "1_4", position: [66, 8] },
-                { file: "1_5", position: [54, 65] },
-                { file: "1_6", position: [69, 30] },
-            ],
-            level2: [
-                { file: "2_1", position: [10, 50] },
-                { file: "2_2", position: [55, 4] },
-                { file: "2_3", position: [50, 44] },
-                { file: "2_4", position: [15, 34] },
-                { file: "2_5", position: [77, 24] },
-                { file: "2_6", position: [79, 42] },
-            ],
-        },
-        gameOver: false,
-        gamePause: false,
-        gameWon: false,
-        reduceTime: false        
-    }))
+    resetState: () => set(initialState)
 }));
 
 mountStoreDevtool('Store', useStore);

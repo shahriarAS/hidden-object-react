@@ -14,7 +14,7 @@ function GameStat() {
             <GameTimer />
             <div className="control-btn bg-contain bg-no-repeat w-24 h-24 pt-4 flex flex-col items-center text-center text-white font-bubblegum text-xl" style={{ backgroundImage: `url(${statBG})` }}>
                 <p>Level:</p>
-                <p>{state.level}/10</p>
+                <p>{state.level}/{state.maxLevel}</p>
             </div>
         </>
     );

@@ -5,12 +5,12 @@ import statBG from "../../assets/images/stat-bg.png";
 import useStore from "../../store";
 
 function GameOverModal() {
-    const navigate = useNavigate();
+    let navigate = useNavigate()
     const state = useStore((state) => state)
     const imageRef = useRef(null);
-    
+
     const goNextLevel = () => {
-        navigate(0);
+        navigate(0)
     }
 
     const handleShare = async () => {
@@ -40,7 +40,13 @@ function GameOverModal() {
 
 
     useEffect(() => {
-        state.targetItems[`level${state.level}`].length == 0 ? state.setGameOver(true) : null
+        if (state.targetItems[`level${state.level}`].length == 0) {
+            state.setGameOver(true)
+            if (state.level != state.maxLevel) {
+                state.addLevel()
+                localStorage.setItem("gameLevel", parseInt(state.level) + 1)
+            }
+        }
     }, [state.targetItems]);
 
     return (
@@ -55,9 +61,16 @@ function GameOverModal() {
                             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                 <Link to="/">Menu</Link>
                             </button>
-                            <button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
-                                {state.score == 6 ? "Next Level" : "Restart"}
-                            </button>
+                            {
+                                (state.score < 6) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                    Restart
+                                </button>) : null
+                            }
+                            {
+                                (state.level != state.maxLevel & state.score == 6) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                    Next Level
+                                </button>) : null
+                            }
                             {
                                 state.score == 6 ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
                             }
