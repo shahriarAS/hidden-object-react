@@ -67,6 +67,10 @@ const useStore = create(set => ({
     setGameWon: (val) => set(state => ({
         gameWon: val
     })),
+    reduceTime: false,
+    setReduceTime: (val) => set(state => ({
+        reduceTime: val
+    })),
 }));
 
 mountStoreDevtool('Store', useStore);

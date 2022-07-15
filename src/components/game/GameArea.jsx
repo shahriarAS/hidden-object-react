@@ -20,6 +20,7 @@ function GameArea() {
                 pauseOnHover: true,
                 draggable: true,
             })
+            state.setReduceTime(true)
             setTimeout(function () {
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
@@ -27,6 +28,15 @@ function GameArea() {
             e.target.style.visibility = "hidden"
             e.target.style.opacity = 0
         } else {
+            toast.warning("Wrong! 10 Seconds Reduced.", {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            })
+            state.setReduceTime(true)
         }
     }
 
