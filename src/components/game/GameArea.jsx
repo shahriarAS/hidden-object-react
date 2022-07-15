@@ -1,53 +1,41 @@
 import { useEffect, useState } from "react";
+import bg1 from "../../assets/images/bg1.jpg";
+import useStore from "../../store";
+import getFilename from "../../utils/getFilename";
 import HiddenObject from "./HiddenObject";
 
-function GameArea({ items, targetItems }) {
+function GameArea() {
     const [imgItemState, setImgItemState] = useState([]);
+    const state = useStore((state) => state)
 
-    const generatePosition = () => {
-        return {
-            x: Math.random() * (window.innerWidth - 100) + 10,
-            y: Math.random() * (window.innerHeight - (200)) + 58,
-        }
-    }
-
-    const onImageClick = (e, clickedItem) => {
-        console.log(e)
-        if (targetItems.includes(clickedItem)) {
-            // e.target.style.visibility = "hidden"
-            e.target.style.opacity = "0"
-            // e.target.style.cursor = "not-allowed"
-            // alert("Great!")
-        } else {
-            alert("Wrong.")
-        }
+    const removeItem = (item) => {
+        console.log("Remove ITem", getFilename(item))
+        state.removeTargetItem(state.level, getFilename(item))
     }
 
     useEffect(() => {
-        items.forEach(element => {
-        import(`../../assets/images/objects/${element}.png`).then(image =>
-            setImgItemState(prevState => (
-                [...prevState, image.default]
-            ))
-        )
-    });
+        setImgItemState([])
+        state.targetItems[`level${state.level}`].forEach(imgName => {
+            import(`../../assets/images/${imgName.file}.png`).then(image => {
+                setImgItemState(prevState => (
+                    [...prevState, { file: image.default, position: imgName.position }]
+                ))
+            }
+            )
+        });
         console.log("FIRE ONCE")
-    }, []);
+    }, [state.targetItems]);
 
     return (
-        <div className="">
+        <div className="game-area h-screen mr-2 relative overflow-hidden">
+            <img src={bg1} className="w-full h-full" alt="" />
             {
                 imgItemState.map(
                     imgItem => (
-                        <HiddenObject key={imgItem} img={imgItem} top={generatePosition().y} left={generatePosition().x} onImageClick={onImageClick} />
+                        <HiddenObject key={imgItem.file} img={imgItem.file} top={imgItem.position[0]} left={imgItem.position[1]} removeItem={removeItem} />
                     )
                 )
             }
-            {/* <HiddenObject img={require(`../../assets/images/objects/${imgFilename}.jpeg`)} top={generatePosition().y} left={generatePosition().x} onImageClick={onImageClick} />
-            <HiddenObject img={hidde_obj2} top={generatePosition().y} left={generatePosition().x} onImageClick={onImageClick} />
-            <HiddenObject img={hidde_obj3} top={generatePosition().y} left={generatePosition().x} onImageClick={onImageClick} />
-            <HiddenObject img={hidde_obj4} top={generatePosition().y} left={generatePosition().x} onImageClick={onImageClick} />
-            <HiddenObject img={hidde_obj5} top={generatePosition().y} left={generatePosition().x} onImageClick={onImageClick} /> */}
         </div>
     );
 }

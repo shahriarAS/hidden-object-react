@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
 import grid from "../../assets/images/grid.png";
 import useStore from "../../store";
-import getFilename from "../../utils/getFilename";
 
-function GameTargetItems({ targetItems }) {
+function GameTargetItems() {
     const [imgItemState, setImgItemState] = useState([]);
     const state = useStore((state) => state)
-
-    const removeItem = (item) => {
-        console.log("Remove ITem", getFilename(item))
-        state.removeTargetItem(state.level, getFilename(item))
-    }
 
     useEffect(() => {
         setImgItemState([])
         state.targetItems[`level${state.level}`].forEach(imgName => {
-            import(`../../assets/images/${imgName}.png`).then(image => {
+            import(`../../assets/images/${imgName.file}.png`).then(image => {
                 setImgItemState(prevState => (
                     [...prevState, image.default]
                 ))
@@ -26,7 +20,7 @@ function GameTargetItems({ targetItems }) {
     }, [state.targetItems]);
 
     return (
-        <div className="game-target h-full p-2 flex flex-col flex-wrap items-center justify-start gap-1">
+        <div className="game-target p-2 flex flex-col items-center justify-center gap-1">
             {
                 imgItemState.map(
                     item => (
