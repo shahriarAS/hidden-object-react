@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import close from "../../assets/images/close.png";
 import music1 from "../../assets/images/music1.png";
 import music2 from "../../assets/images/music2.png";
@@ -39,7 +40,7 @@ function GamePauseModal() {
                             }
                         </div>
                         <div className="flex gap-4 mt-2">
-                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-8 py-2.5 mr-2 mb-2 text-xl">Menu</button>
+                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl"><Link to="/">Menu</Link></button>
                             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-8 py-2.5 mr-2 mb-2 text-xl" onClick={gameContinue}>Continue</button>
 
                         </div>

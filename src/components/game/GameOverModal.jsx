@@ -1,16 +1,16 @@
 import { toBlob } from 'html-to-image';
 import { useEffect, useRef } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import statBG from "../../assets/images/stat-bg.png";
 import useStore from "../../store";
 
 function GameOverModal() {
+    const navigate = useNavigate();
     const state = useStore((state) => state)
     const imageRef = useRef(null);
-
-    const gameContinue = () => {
-        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
-        state.setReduceTime(0)
-        state.setGameOver(false)
+    
+    const goNextLevel = () => {
+        navigate(0);
     }
 
     const handleShare = async () => {
@@ -52,8 +52,12 @@ function GameOverModal() {
                         <h1 className="text-gray-100 text-2xl mb-2">Your Score: {state.score}</h1>
                         <h1 className="text-gray-100 text-2xl">Total Time: {state.time[0]}:{state.time[1]}</h1>
                         <div className="flex items-center justify-center gap-4 mt-8">
-                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Menu</button>
-                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl" onClick={gameContinue}>{state.score == 6 ? "Next Level" : "Restart"}</button>
+                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                <Link to="/">Menu</Link>
+                            </button>
+                            <button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                {state.score == 6 ? "Next Level" : "Restart"}
+                            </button>
                             {
                                 state.score == 6 ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
                             }
@@ -61,7 +65,7 @@ function GameOverModal() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -28,9 +28,6 @@ const useStore = create(set => ({
         isFullScreen: !state.isFullScreen
     })),
     targetItems: {
-        // 330 807.5px
-        // 1 807.5/330
-        // 
         level1: [
             { file: "1_1", position: [54, 40] },
             { file: "1_2", position: [19.5, 18.5] },
@@ -71,6 +68,33 @@ const useStore = create(set => ({
     setReduceTime: (val) => set(state => ({
         reduceTime: val
     })),
+    resetState: () => set(state => ({
+        score: 0,
+        level: 1,
+        time: [0, 0], 
+        targetItems: {
+            level1: [
+                { file: "1_1", position: [54, 40] },
+                { file: "1_2", position: [19.5, 18.5] },
+                { file: "1_3", position: [50, 8] },
+                { file: "1_4", position: [66, 8] },
+                { file: "1_5", position: [54, 65] },
+                { file: "1_6", position: [69, 30] },
+            ],
+            level2: [
+                { file: "2_1", position: [10, 50] },
+                { file: "2_2", position: [55, 4] },
+                { file: "2_3", position: [50, 44] },
+                { file: "2_4", position: [15, 34] },
+                { file: "2_5", position: [77, 24] },
+                { file: "2_6", position: [79, 42] },
+            ],
+        },
+        gameOver: false,
+        gamePause: false,
+        gameWon: false,
+        reduceTime: false        
+    }))
 }));
 
 mountStoreDevtool('Store', useStore);
