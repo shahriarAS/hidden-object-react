@@ -4,7 +4,7 @@ import GameScreen from "./pages/GameScreen";
 function App() {
 
   return (
-    <div style={{ backgroundImage: `url(${wood})` }}>
+    <div id="app" style={{ backgroundImage: `url(${wood})` }}>
       <GameScreen />
     </div>
   )
