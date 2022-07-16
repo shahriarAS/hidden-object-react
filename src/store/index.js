@@ -6,6 +6,7 @@ import generatePosition from '../utils/generatePosition';
 const initialState = {
     score: 0,
     maxLevel: 7,
+    hintTook: 0,
     level: localStorage.getItem('gameLevel') || 1,
     time: [0, 0],
     isSound: true,
@@ -83,6 +84,9 @@ const useStore = create(set => ({
     })),
     addLevel: () => set(state => ({
         level: state.level + 1
+    })),
+    addHintTook: () => set(state => ({
+        hintTook: state.hintTook + 1
     })),
     setTime: (time) => set(state => ({
         time: time

@@ -37,6 +37,7 @@ function GameArea() {
             // toast.error("Wrong! 10 Seconds Reduced.")
             setTimeout(function () {
                 state.setReduceTime(Math.random())
+                e.target.classList.remove("shake-horizontal")
             }, 500);
             e.target.classList.add("shake-horizontal")
         }
