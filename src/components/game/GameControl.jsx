@@ -10,9 +10,16 @@ import GameStat from "./GameStat";
 function GameControl({ goFullScreen, closeScreen }) {
     const state = useStore((state) => state)
 
+    const showHint = () => {
+        state.setShowHint(true)
+        setTimeout(function () {
+            state.setShowHint(false)
+        }, 400);
+    }
+
     return (
         <div className="game-controls w-32 border bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center py-4 gap-4">
-            <div className="control-btn bg-cover bg-no-repeat w-24 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl pl-4 transition-all duration-150 cursor-pointer hover:scale-110" style={{ backgroundImage: `url(${button})` }}>Hint</div>
+            <div className="control-btn bg-cover bg-no-repeat w-24 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl pl-4 transition-all duration-150 cursor-pointer hover:scale-110" style={{ backgroundImage: `url(${button})` }} onClick={showHint}>Hint</div>
             <div className="control-btn bg-cover bg-no-repeat w-24 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl pl-4  transition-all duration-150 cursor-pointer hover:scale-110" style={{ backgroundImage: `url(${button})` }} onClick={() => {
                 // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
                 state.setReduceTime(0)

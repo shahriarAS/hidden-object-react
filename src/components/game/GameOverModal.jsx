@@ -50,7 +50,7 @@ function GameOverModal() {
     }, [state.targetItems]);
 
     return (
-        <div id="popup-modal" className={`absolute inset-0 ${state.gameOver == true ? "slide-in-top" : state.gameOver == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-gray-400/80 transition-all duration-500`} aria-modal="true" role="dialog">
+        <div id="popup-modal" className={`absolute inset-0 ${state.gameOver == true ? "slide-in-top" : state.gameOver == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">
             <div className="relative p-4 w-1/2 max-w-md h-full md:h-auto" ref={imageRef}>
                 <div className="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
                     <div className="py-12 pl-4 text-center mt-4 flex flex-col justify-between">

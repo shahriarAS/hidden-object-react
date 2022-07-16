@@ -74,7 +74,7 @@ function GameArea() {
     }, []);
 
     return (
-        <div className="game-area w-full h-full border-2 mr-2 relative overflow-hidden bg-contain bg-no-repeat">
+        <div className="game-area w-full h-full mr-1 relative overflow-hidden bg-contain bg-no-repeat">
             <img src={bg1} alt="" className="w-full h-full" loading="lazy" />
             <img src={vanish} ref={vanishRef} alt="Vanish" className="absolute hidden z-50" />
             {

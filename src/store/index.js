@@ -15,6 +15,7 @@ const initialState = {
     gamePause: "init",
     gameWon: false,
     reduceTime: false,
+    showHint: false,
     targetItems: {
         level1: [
             { file: "1_1", position: [54, 40] },
@@ -114,6 +115,9 @@ const useStore = create(set => ({
     })),
     setReduceTime: (val) => set(state => ({
         reduceTime: val
+    })),
+    setShowHint: (val) => set(state => ({
+        showHint: val
     })),
     resetState: () => set(initialState)
 }));
