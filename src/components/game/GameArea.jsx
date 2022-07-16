@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import toast from 'react-hot-toast';
 import bg1 from "../../assets/images/bg1.jpg";
 import vanish from "../../assets/images/vanish.gif";
 import useStore from "../../store";
@@ -21,7 +20,7 @@ function GameArea() {
             vanishEl.classList.remove("hidden")
             e.target.classList.add("bounce-out-top")
 
-            toast.success('Correct! Got 1 Point.')
+            // toast.success('Correct! Got 1 Point.')
 
             setTimeout(function () {
                 e.target.style.visibility = "hidden"
@@ -33,7 +32,7 @@ function GameArea() {
                 }, 400);
             }, 400);
         } else {
-            toast.error("Wrong! 10 Seconds Reduced.")
+            // toast.error("Wrong! 10 Seconds Reduced.")
             setTimeout(function () {
                 state.setReduceTime(Math.random())
             }, 500);
