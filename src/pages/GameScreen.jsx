@@ -41,7 +41,7 @@ function GameScreen() {
     useEffect(() => {
         //Responsive Scaling
         let outer = appRef.current
-        let wrapper = outerScreenRef.current
+        let wrapper = appRef.current
         // let maxWidth = outer.clientWidth
         // let maxHeight = outer.clientHeight
         let maxWidth = window.innerWidth
@@ -65,8 +65,8 @@ function GameScreen() {
                 // wrapper.style.transform = `scale(${0-x})`;
                 scale = Math.min(width / maxWidth, height / maxHeight);
                 outer.style.transform = "scale(" + scale + ")";
-                // wrapper.style.width = maxWidth * scale;
-                // wrapper.style.height = maxHeight * scale;
+                wrapper.style.width = maxWidth * scale;
+                wrapper.style.height = maxHeight * scale;
                 console.log(`Resize with scale ${x}`)
             }
 
