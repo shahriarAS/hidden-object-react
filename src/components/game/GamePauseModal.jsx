@@ -17,7 +17,7 @@ function GamePauseModal() {
     }
 
     return (
-        <div id="popup-modal" className={`${state.gamePause ? null : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex bg-blend-overlay bg-gray-400/80`} aria-modal="true" role="dialog">
+        <div id="popup-modal" className={`absolute inset-0 ${state.gamePause == true ? "slide-in-top" : state.gamePause == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-gray-400/80 transition-all duration-500`} aria-modal="true" role="dialog">
             <div className="relative p-4 w-1/2 max-w-md h-full md:h-auto">
                 <div className="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
                     <button type="button" className="absolute bg-transparent top-3 -right-2" onClick={() => {

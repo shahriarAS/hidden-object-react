@@ -14,14 +14,18 @@ function GameArea() {
         if (soln.includes(getFilename(item))) {
             toast.success('Correct! Got 1 Point.')
             setTimeout(function () {
+                e.target.style.visibility = "hidden"
+                e.target.style.opacity = 0
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
-            }, 280);
-            e.target.style.visibility = "hidden"
-            e.target.style.opacity = 0
+            }, 500);
+            e.target.classList.add("bounce-out-top")
         } else {
             toast.error("Wrong! 10 Seconds Reduced.")
-            state.setReduceTime(Math.random())
+            setTimeout(function () {
+                state.setReduceTime(Math.random())
+            }, 500);
+            e.target.classList.add("shake-horizontal")
         }
     }
 
@@ -40,7 +44,6 @@ function GameArea() {
         if (!levelList.includes(parseInt(state.level))) {
             levelList.push(parseInt(state.level))
         }
-        console.log(levelList)
 
         levelList.forEach(i => {
             state.targetItems[`level${i}`].forEach(imgName => {
@@ -60,7 +63,7 @@ function GameArea() {
 
     return (
         <div className="game-area w-full h-full border-2 mr-2 relative overflow-hidden bg-contain bg-no-repeat">
-            <img src={bg1} alt="" className="w-full h-full"/>
+            <img src={bg1} alt="" className="w-full h-full" />
             {
                 imgItemState.map(
                     imgItem => (

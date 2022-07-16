@@ -26,11 +26,11 @@ const GameTimer = () => {
     }
 
     useEffect(() => {
-        if (state.gamePause || state.gameOver) {
+        if (state.gamePause == true || state.gameOver == true) {
             // Remain Time = Total Time - Passed Time
             state.setTime([2 - minutes, 60 - seconds])
             pause()
-        } else if (!state.gamePause || !state.gameOver) {
+        } else if (state.gamePause == false || state.gameOver == false) {
             resume()
         }
         // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge

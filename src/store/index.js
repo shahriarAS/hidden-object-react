@@ -11,8 +11,8 @@ const initialState = {
     isSound: true,
     isMusic: true,
     isFullScreen: true,
-    gameOver: false,
-    gamePause: false,
+    gameOver: "init",
+    gamePause: "init",
     gameWon: false,
     reduceTime: false,
     targetItems: {
