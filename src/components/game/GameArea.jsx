@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useSound from 'use-sound';
 import rightSound from "../../assets/audio/right.wav";
+import wrongSound from "../../assets/audio/wrong.wav";
 import bg1 from "../../assets/images/bg1.jpg";
 import vanish from "../../assets/images/vanish.gif";
 import useStore from "../../store";
@@ -12,6 +13,7 @@ function GameArea() {
     const vanishRef = useRef()
     const state = useStore((state) => state)
     const [playRightSound] = useSound(rightSound);
+    const [playWrongSound] = useSound(wrongSound);
 
     const removeItem = (e, item) => {
         const soln = state.targetItems[`level${state.level}`].map(i => i.file)
@@ -35,6 +37,7 @@ function GameArea() {
             }, 400);
         } else {
             // toast.error("Wrong! 10 Seconds Reduced.")
+            state.isSound ? playWrongSound() : null
             setTimeout(function () {
                 state.setReduceTime(Math.random())
                 e.target.classList.remove("shake-horizontal")
