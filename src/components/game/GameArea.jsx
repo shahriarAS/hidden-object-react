@@ -59,8 +59,8 @@ function GameArea() {
     }, []);
 
     return (
-        <div className="game-area h-screen mr-2 relative overflow-hidden magictime puffin">
-            <img src={bg1} className="w-full h-full" alt="" />
+        <div className="game-area w-full h-full border-2 mr-2 relative overflow-hidden bg-contain bg-no-repeat">
+            <img src={bg1} alt="" className="w-full h-full"/>
             {
                 imgItemState.map(
                     imgItem => (
