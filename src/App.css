@@ -186,8 +186,8 @@
 }
 
 .bounce-out-top {
-  -webkit-animation: bounce-out-top 1.5s both;
-  animation: bounce-out-top 1.5s both;
+  -webkit-animation: bounce-out-top .3s both;
+  animation: bounce-out-top .3s both;
 }
 
 /**
