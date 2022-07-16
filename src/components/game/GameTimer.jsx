@@ -11,10 +11,6 @@ const GameTimer = () => {
     const {
         seconds,
         minutes,
-        hours,
-        days,
-        isRunning,
-        start,
         pause,
         resume,
         restart,
@@ -30,7 +26,7 @@ const GameTimer = () => {
             // Remain Time = Total Time - Passed Time
             state.setTime([2 - minutes, 60 - seconds])
             pause()
-        } else if (state.gamePause == false || state.gameOver == false) {
+        } else if (state.gamePause == false & state.gameOver == false) {
             resume()
         }
         // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge

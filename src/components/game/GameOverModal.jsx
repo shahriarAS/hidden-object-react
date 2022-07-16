@@ -1,10 +1,13 @@
 import { toBlob } from 'html-to-image';
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import useSound from 'use-sound';
+import gameOverSound from "../../assets/audio/game-over.wav";
 import statBG from "../../assets/images/stat-bg.png";
 import useStore from "../../store";
 
 function GameOverModal() {
+    const [playGameOverSound] = useSound(gameOverSound);
     let navigate = useNavigate()
     const state = useStore((state) => state)
     const imageRef = useRef(null);
@@ -41,6 +44,7 @@ function GameOverModal() {
 
     useEffect(() => {
         if (state.targetItems[`level${state.level}`].length == 0) {
+            state.isSound ? playGameOverSound() : null
             state.setGameOver(true)
             if (state.level != state.maxLevel) {
                 state.addLevel()

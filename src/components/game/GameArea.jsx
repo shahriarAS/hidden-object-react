@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import useSound from 'use-sound';
+import rightSound from "../../assets/audio/right.wav";
 import bg1 from "../../assets/images/bg1.jpg";
 import vanish from "../../assets/images/vanish.gif";
 import useStore from "../../store";
@@ -7,19 +9,19 @@ import HiddenObject from "./HiddenObject";
 
 function GameArea() {
     const [imgItemState, setImgItemState] = useState([]);
-    const [performBlast, setPerformBlast] = useState(false);
     const vanishRef = useRef()
     const state = useStore((state) => state)
+    const [playRightSound] = useSound(rightSound);
 
     const removeItem = (e, item) => {
         const soln = state.targetItems[`level${state.level}`].map(i => i.file)
         if (soln.includes(getFilename(item))) {
+            state.isSound ? playRightSound() : null
             const vanishEl = vanishRef.current
             vanishEl.style.left = `${e.target.x - (e.target.width + 20)}px`
             vanishEl.style.top = `${e.target.y - (e.target.height + 20)}px`
             vanishEl.classList.remove("hidden")
             e.target.classList.add("bounce-out-top")
-
             // toast.success('Correct! Got 1 Point.')
 
             setTimeout(function () {
