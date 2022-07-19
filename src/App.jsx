@@ -7,10 +7,11 @@ import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import NewGameScreen from './pages/NewGameScreen';
 import Register from './pages/Register';
+import Settings from './pages/Settings';
 
 function App() {
   return (
-    <div id="app" className="max-w-[1440px] h-screen">
+    <div id="app" className="max-w-[1440px] m-auto overflow-x-hidden">
       <Toaster position="top-center" />
       <Routes>
         <Route path="/" element={
@@ -27,6 +28,9 @@ function App() {
         } />
         <Route path="/login" element={
           <Layout childComp={<Login />} />
+        } />
+        <Route path="/settings" element={
+          <Layout childComp={<Settings />} />
         } />
       </Routes>
     </div>

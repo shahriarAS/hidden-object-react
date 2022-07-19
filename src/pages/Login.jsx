@@ -1,7 +1,7 @@
 import { FaLock, FaRegEye, FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import globeImg from "../assets/images/Page/Register/globe.png";
-import registerImg from "../assets/images/Page/Register/sideImage.png";
+import globeImg from "../assets/images/Page/Common/globe.png";
+import registerImg from "../assets/images/Page/Common/sideImage.png";
 
 function Login() {
     return (
