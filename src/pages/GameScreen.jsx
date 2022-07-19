@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import wood from "../assets/images/wood_black.jpg";
 import toast from "react-hot-toast";
 import GameArea from "../components/game/GameArea";
 import GameOptions from "../components/game/GameOptions";
@@ -65,7 +66,7 @@ function GameScreen() {
     }, [state.showHint]);
 
     return (
-        <div ref={appRef} className="game-screen w-4/5 max-w-[1100px] h-[605px] max-h-[800px] m-auto flex items-center justify-center overflow-hidden">
+        <div ref={appRef} className="game-screen w-4/5 max-w-[1100px] h-[605px] max-h-[800px] m-auto flex items-center justify-center overflow-hidden"  style={{ backgroundImage: `url(${wood})` }}>
             <GameArea />
             <GameOptions goFullScreen={goFullScreen} closeScreen={closeScreen} />
             <GamePauseModal />

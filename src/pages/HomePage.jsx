@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom';
 import bannerBG from "../assets/images/Page/Homepage/17.png";
 import multiplayerImg from "../assets/images/Page/Homepage/24.png";
 import singleplayerImg from "../assets/images/Page/Homepage/27.png";
-import profileImg from "../assets/images/Page/Homepage/5.png";
-import rateImg from "../assets/images/Page/Homepage/64.png";
-import aboutImg from "../assets/images/Page/Homepage/66.png";
-import homeImg from "../assets/images/Page/Homepage/67.png";
 import cardBG from "../assets/images/Page/Homepage/69.png";
-import exitImg from "../assets/images/Page/Homepage/70.png";
 import settingImg from "../assets/images/Page/Homepage/setting-card.png";
 import useStore from '../store';
 
@@ -20,34 +15,6 @@ function HomePage() {
     }, []);
     return (
         <div className='w-full h-screen flex flex-col items-center font-bubblegum'>
-            <div className="navbar w-full h-16 flex justify-between items-center bg-[#9B00F3] text-white px-2 py-4">
-                <div className="left-nav flex justify-between items-center">
-                    <div className="nav-item flex items-center justify-between gap-2">
-                        <img src={exitImg} alt="Exit Image" className='w-6' />
-                        <p className='font-bold text-3xl'>Exit</p>
-                    </div>
-                </div>
-                <div className="right-nav flex justify-between items-center gap-8 font-bold text-2xl">
-                    <Link to="/">
-                        <div className="nav-item flex items-center justify-between gap-1">
-                            <p className=''>Home</p>
-                            <img src={homeImg} alt="Exit Image" className='w-8' />
-                        </div>
-                    </Link>
-                    <div className="nav-item flex items-center justify-between gap-1">
-                        <p className=''>About Us</p>
-                        <img src={aboutImg} alt="Exit Image" className='w-8' />
-                    </div>
-                    <div className="nav-item flex items-center justify-between gap-1">
-                        <p className=''>Rate</p>
-                        <img src={rateImg} alt="Exit Image" className='w-8' />
-                    </div>
-                    <div className="nav-item flex items-center justify-between gap-1">
-                        <p className=''>Profile</p>
-                        <img src={profileImg} alt="Exit Image" className='w-8' />
-                    </div>
-                </div>
-            </div>
             <div className="home-banner w-full min-h-[350px] bg-cover bg-center" style={{ backgroundImage: `url(${bannerBG})` }}>
                 <div className="banner-inner w-full h-full flex items-center justify-center text-white bg-gradient-to-b from-[#a31cf1]/70 to-[#cf7bff]/40">
                     <h1 className="banner-title text-9xl drop-shadow-2xl">Find Where I Am</h1>
