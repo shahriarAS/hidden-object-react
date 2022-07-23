@@ -1,10 +1,12 @@
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from './components/root/Layout';
 import Loading from "./components/root/Loading";
-import { auth } from './config/firebaseConfig.js';
+import { auth, db } from './config/firebaseConfig.js';
 import GameScreen from "./pages/GameScreen";
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
@@ -12,11 +14,40 @@ import NewGameScreen from './pages/NewGameScreen';
 import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
+import useStore from "./store";
+
 
 
 
 function App() {
+  const state = useStore((state) => state)
   const [user, loading, error] = useAuthState(auth);
+
+
+  const getDataOnce = async () => {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data()
+      localStorage.setItem("gameLevel", data.level)
+      state.resetState({
+        level: data.level,
+        isSound: data.settings.isSound,
+        isMusic: data.settings.isMusic,
+      })
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      getDataOnce()
+    } else {
+      state.resetState()
+    }
+  }, [user]);
 
   return (
     loading ? <Loading /> : (

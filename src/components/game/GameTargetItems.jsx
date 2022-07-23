@@ -17,7 +17,7 @@ function GameTargetItems() {
             )
         });
         console.log("FIRE ONCE")
-    }, [state.targetItems]);
+    }, [state.targetItems, state.level]);
 
     return (
         <div className="game-target p-2 flex flex-col items-center justify-center gap-1">

@@ -1,7 +1,13 @@
 // store/index.js
+// import { doc, onSnapshot } from "firebase/firestore";
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
+// import { db } from "../config/firebaseConfig.js";
 import generatePosition from '../utils/generatePosition';
+
+// const unsub = onSnapshot(doc(db, "users", "SF"), (doc) => {
+//     console.log("Current data: ", doc.data());
+// });
 
 const initialState = {
     score: 0,
@@ -11,22 +17,11 @@ const initialState = {
     time: 0,
     isSound: localStorage.getItem('isSound') || true,
     isMusic: localStorage.getItem('isMusic') || true,
-    isFullScreen: true,
     gameOver: "init",
     gamePause: "init",
     gameWon: false,
     reduceTime: false,
     showHint: false,
-    gamePlayed: [
-        {
-            gameId: "",
-            level: "",
-            score: "",
-            time: [0, 0],
-            hintTook: 0,
-            gameWon: false,
-        }
-    ],
     targetItems: {
         level1: [
             { file: "1_1", position: [54, 40] },
@@ -139,7 +134,15 @@ const useStore = create(set => ({
             val
         ],
     })),
-    resetState: () => set(initialState)
+    resetState: (val = null) => set(state => (
+        val ? {
+            ...state,
+            level: val.level,
+            isSound: val.isSound,
+            isMusic: val.isMusic
+        } : initialState
+    )
+    )
 }));
 
 mountStoreDevtool('Store', useStore);

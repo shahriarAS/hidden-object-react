@@ -1,3 +1,5 @@
+import { doc, updateDoc } from "firebase/firestore";
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from "react-router-dom";
 import close from "../../assets/images/close.png";
 import music1 from "../../assets/images/music1.png";
@@ -5,15 +7,45 @@ import music2 from "../../assets/images/music2.png";
 import sound1 from "../../assets/images/sound1.png";
 import sound2 from "../../assets/images/sound2.png";
 import statBG from "../../assets/images/stat-bg.png";
+import { auth, db } from '../../config/firebaseConfig';
 import useStore from "../../store";
+import secondsToMinute from "../../utils/secondsToMinute";
+
 
 function GamePauseModal() {
     const state = useStore((state) => state)
+    const [user, loading, error] = useAuthState(auth);
 
     const gameContinue = () => {
         // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
         state.setReduceTime(0)
         state.setGamePause(false)
+    }
+
+    const toggleSoundSetting = () => {
+        if (user) {
+            const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+            const updateSoundDoc = async () => {
+                await updateDoc(gamePlayedRef, {
+                    "settings.isSound": !state.isSound
+                });
+            }
+            updateSoundDoc()
+        }
+        state.toggleSound()
+    }
+
+    const toggleMusicSetting = () => {
+        if (user) {
+            const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+            const updateMusicDoc = async () => {
+                await updateDoc(gamePlayedRef, {
+                    "settings.isMusic": !state.isMusic
+                });
+            }
+            updateMusicDoc()
+        }
+        state.toggleMusic()
     }
 
     return (
@@ -30,13 +62,13 @@ function GamePauseModal() {
                     <div className="p-6 text-center mt-8 flex flex-col justify-between">
                         <h1 className="text-gray-100 text-4xl mb-2">Paused</h1>
                         <h1 className="text-gray-100 text-2xl mb-2">Your Score: {state.score}</h1>
-                        <h1 className="text-gray-100 text-2xl">Total Time: {state.time[0]}:{state.time[1]}</h1>
+                        <h1 className="text-gray-100 text-2xl">Total Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                         <div className="control-panel flex justify-center gap-4 my-2">
                             {
-                                state.isSound ? (<img onClick={state.toggleSound} src={sound1} width={40} alt="Sound" className="cursor-pointer" />) : (<img onClick={state.toggleSound} src={sound2} width={40} alt="No Sound" className="cursor-pointer" />)
+                                state.isSound ? (<img onClick={toggleSoundSetting} src={sound1} width={40} alt="Sound" className="cursor-pointer" />) : (<img onClick={toggleSoundSetting} src={sound2} width={40} alt="No Sound" className="cursor-pointer" />)
                             }
                             {
-                                state.isMusic ? (<img onClick={state.toggleMusic} src={music1} width={40} alt="Music" className="cursor-pointer" />) : (<img onClick={state.toggleMusic} src={music2} width={40} alt="No Music" className="cursor-pointer" />)
+                                state.isMusic ? (<img onClick={toggleMusicSetting} src={music1} width={40} alt="Music" className="cursor-pointer" />) : (<img onClick={toggleMusicSetting} src={music2} width={40} alt="No Music" className="cursor-pointer" />)
                             }
                         </div>
                         <div className="flex gap-4 mt-2">

@@ -76,7 +76,7 @@ function GameOverModal() {
                         }
                     });
                 }
-                updateWindDoc()
+                state.time != 0 ? updateWindDoc() : null
 
                 if (state.level != state.maxLevel) {
                     const updateLeveldDoc = async () => {
@@ -84,12 +84,12 @@ function GameOverModal() {
                             level: increment(1)
                         })
                     }
-                    updateLeveldDoc()
+                    state.time != 0 ? updateLeveldDoc() : null
                 }
             }
 
             if (state.level != state.maxLevel) {
-                state.addLevel()
+                // state.addLevel()
                 localStorage.setItem("gameLevel", parseInt(state.level) + 1)
             }
 
@@ -115,10 +115,10 @@ function GameOverModal() {
                     });
                 }
 
-                updateLostdDoc()
+                state.time != 0 ? updateLostdDoc() : null
             }
         }
-    }, [state.targetItems, state.gameOver]);
+    }, [state.targetItems, state.gameOver, state.time]);
 
     return (
         <div id="popup-modal" className={`absolute inset-0 ${state.gameOver == true ? "slide-in-top" : state.gameOver == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">

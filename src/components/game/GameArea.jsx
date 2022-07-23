@@ -76,7 +76,7 @@ function GameArea() {
 
         // }
         console.log("FIRE ONCE")
-    }, []);
+    }, [state.level]);
 
     return (
         <div className="game-area w-full h-full mr-1 relative overflow-hidden bg-contain bg-no-repeat">
