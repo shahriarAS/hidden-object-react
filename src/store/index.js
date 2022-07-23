@@ -8,15 +8,25 @@ const initialState = {
     maxLevel: 7,
     hintTook: 0,
     level: localStorage.getItem('gameLevel') || 1,
-    time: [0, 0],
-    isSound: true,
-    isMusic: true,
+    time: 0,
+    isSound: localStorage.getItem('isSound') || true,
+    isMusic: localStorage.getItem('isMusic') || true,
     isFullScreen: true,
     gameOver: "init",
     gamePause: "init",
     gameWon: false,
     reduceTime: false,
     showHint: false,
+    gamePlayed: [
+        {
+            gameId: "",
+            level: "",
+            score: "",
+            time: [0, 0],
+            hintTook: 0,
+            gameWon: false,
+        }
+    ],
     targetItems: {
         level1: [
             { file: "1_1", position: [54, 40] },
@@ -122,6 +132,12 @@ const useStore = create(set => ({
     })),
     setShowHint: (val) => set(state => ({
         showHint: val
+    })),
+    addGamePlayed: (val) => set(state => ({
+        gamePlayed: [
+            ...state.gamePlayed,
+            val
+        ],
     })),
     resetState: () => set(initialState)
 }));

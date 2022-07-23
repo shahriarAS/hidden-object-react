@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@firebase/database": "^0.13.3",
     "axios": "^0.27.2",
     "firebase": "^9.9.0",
     "html-to-image": "^1.9.0",

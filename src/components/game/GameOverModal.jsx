@@ -1,12 +1,19 @@
+import { doc, increment, updateDoc } from "firebase/firestore";
 import { toBlob } from 'html-to-image';
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
 import gameOverSound from "../../assets/audio/game-over.wav";
 import statBG from "../../assets/images/stat-bg.png";
+import { auth, db } from '../../config/firebaseConfig';
 import useStore from "../../store";
+import generateRandom from '../../utils/generateRandom';
+import secondsToMinute from "../../utils/secondsToMinute";
 
 function GameOverModal() {
+    const [user, loading, error] = useAuthState(auth);
+    const gameID = useId()
     const [playGameOverSound] = useSound(gameOverSound);
     let navigate = useNavigate()
     const state = useStore((state) => state)
@@ -43,15 +50,75 @@ function GameOverModal() {
 
 
     useEffect(() => {
-        if (state.targetItems[`level${state.level}`].length == 0) {
+        if (state.gameOver != true && state.targetItems[`level${state.level}`].length == 0) {
+            console.log("Valo Over")
             state.isSound ? playGameOverSound() : null
             state.setGameOver(true)
+        }
+
+        // Win Condition
+        if (state.gameOver == true && state.targetItems[`level${state.level}`].length == 0) {
+            console.log("Win")
+            if (user) {
+                const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+                const gameID = generateRandom()
+
+                const updateWindDoc = async () => {
+                    await updateDoc(gamePlayedRef, {
+                        totalScore: increment(state.score),
+                        totalTime: increment(state.time),
+                        [`gamePlayed.${gameID}`]: {
+                            level: state.level,
+                            score: state.score,
+                            time: state.time,
+                            hintTook: state.hintTook,
+                            gameWon: true,
+                        }
+                    });
+                }
+                updateWindDoc()
+
+                if (state.level != state.maxLevel) {
+                    const updateLeveldDoc = async () => {
+                        await updateDoc(gamePlayedRef, {
+                            level: increment(1)
+                        })
+                    }
+                    updateLeveldDoc()
+                }
+            }
+
             if (state.level != state.maxLevel) {
                 state.addLevel()
                 localStorage.setItem("gameLevel", parseInt(state.level) + 1)
             }
+
+
+            // Lost Condition
+        } else if (state.gameOver == true && state.targetItems[`level${state.level}`].length != 0) {
+            console.log("Lost")
+            if (user) {
+                const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+                const gameID = generateRandom()
+
+                const updateLostdDoc = async () => {
+                    await updateDoc(gamePlayedRef, {
+                        totalScore: increment(state.score),
+                        totalTime: increment(state.time),
+                        [`gamePlayed.${gameID}`]: {
+                            level: state.level,
+                            score: state.score,
+                            time: state.time,
+                            hintTook: state.hintTook,
+                            gameWon: false,
+                        }
+                    });
+                }
+
+                updateLostdDoc()
+            }
         }
-    }, [state.targetItems]);
+    }, [state.targetItems, state.gameOver]);
 
     return (
         <div id="popup-modal" className={`absolute inset-0 ${state.gameOver == true ? "slide-in-top" : state.gameOver == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">
@@ -60,7 +127,7 @@ function GameOverModal() {
                     <div className="py-12 pl-4 text-center mt-4 flex flex-col justify-between">
                         <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == 6 ? "Won" : "Over"}!</h1>
                         <h1 className="text-gray-100 text-2xl mb-2">Your Score: {state.score}</h1>
-                        <h1 className="text-gray-100 text-2xl">Total Time: {state.time[0]}:{state.time[1]}</h1>
+                        <h1 className="text-gray-100 text-2xl">Total Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                         <div className="flex items-center justify-center gap-4 mt-8">
                             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                 <Link to="/">Menu</Link>

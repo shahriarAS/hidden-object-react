@@ -1,14 +1,13 @@
-import { getAuth, updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaRegEnvelope, FaUserCircle } from "react-icons/fa";
-import app from "../../config/firebaseConfig.js";
+import { auth } from "../../config/firebaseConfig.js";
 import FormDiv from "./FormDiv";
 
 
 function UpdateForm() {
-    const auth = getAuth(app);
     const [user, loading, error] = useAuthState(auth);
 
     const { register, handleSubmit, formState: { errors } } = useForm(

@@ -1,22 +1,32 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaLock, FaRegEnvelope, FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FormDiv from "../../components/page/FormDiv";
-import app from "../../config/firebaseConfig";
+import { auth } from "../../config/firebaseConfig";
+
 
 
 function LoginForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const auth = getAuth(app);
 
     const onSubmit = data => {
         console.log(data)
         signInWithEmailAndPassword(auth, data.email, data.password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 const user = userCredential.user;
                 console.log(userCredential)
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
                 toast.success("Successfully Logged In.")
             })
             .catch((error) => {

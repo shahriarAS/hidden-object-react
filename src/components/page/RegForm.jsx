@@ -1,30 +1,44 @@
-import { createUserWithEmailAndPassword, deleteUser, getAuth, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useId } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaLock, FaRegEnvelope, FaRegEye, FaUserCircle } from "react-icons/fa";
 import FormDiv from "../../components/page/FormDiv";
-import app from "../../config/firebaseConfig.js";
+import { auth, db } from "../../config/firebaseConfig.js";
 
 
 function RegForm() {
+    const randomGameId = useId()
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
             mode: 'onSubmit',
             reValidateMode: 'onChange'
         }
     );
-    const auth = getAuth(app);
 
     const onSubmit = data => {
         createUserWithEmailAndPassword(auth, data.email, data.password)
             .then((userCredential) => {
                 updateProfile(auth.currentUser, {
                     displayName: data.username, photoURL: `https://avatars.dicebear.com/api/jdenticon/${data.username}.svg?mood[]=happy`
-                }).then(() => {
+                }).then(async () => {
                     // Profile updated!
                     // ...
                     const user = userCredential.user;
                     console.log(user)
+                    await setDoc(doc(db, "users", user.uid), {
+                        username: data.username,
+                        email: data.email,
+                        totalScore: 0,
+                        totalTime: 0,
+                        settings: {
+                            isSound: localStorage.getItem('isSound') || true,
+                            isMusic: localStorage.getItem('isMusic') || true,
+                            isFullScreen: localStorage.getItem('isFullScreen') || true,
+                        },
+                        level: localStorage.getItem('gameLevel') || 1,
+                    });
                     toast.success("Successfully Registered and Signed In.")
                 }).catch((error) => {
                     // An error occurred

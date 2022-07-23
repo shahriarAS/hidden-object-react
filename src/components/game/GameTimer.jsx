@@ -24,7 +24,7 @@ const GameTimer = () => {
     useEffect(() => {
         if (state.gamePause == true || state.gameOver == true) {
             // Remain Time = Total Time - Passed Time
-            state.setTime([2 - minutes, 60 - seconds])
+            state.setTime(((2 - minutes) * 60) + (60 - seconds))
             pause()
             console.log("Now Pause")
         } else if (state.gamePause != true && state.gameOver != true) {

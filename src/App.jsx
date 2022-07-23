@@ -1,11 +1,10 @@
-import { getAuth } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from './components/root/Layout';
 import Loading from "./components/root/Loading";
-import app from './config/firebaseConfig';
+import { auth } from './config/firebaseConfig.js';
 import GameScreen from "./pages/GameScreen";
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
@@ -14,8 +13,9 @@ import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 
+
+
 function App() {
-  const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
 
   return (
