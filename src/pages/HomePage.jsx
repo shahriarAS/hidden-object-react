@@ -22,6 +22,20 @@ function HomePage() {
                 </div>
             </div>
             <div className="home-cards h-full w-full p-8 bg-cover bg-center grid grid-cols-3 gap-12 justify-center items-center bg-blend-lighten bg-white/40" style={{ backgroundImage: `url(${cardBG})` }}>
+                <Link to="/singleplay">
+                    <div className="game-card h-60 border-4 border-[#FF8500] rounded-md bg-cover flex items-end justify-center" style={{ backgroundImage: `url(${singleplayerImg})` }}>
+                        <h1 className="card-title w-full bg-[#FF8500] text-white px-4 py-1 text-4xl font-bold text-center">
+                            Singleplayer
+                        </h1>
+                    </div>
+                </Link>
+                <Link to="/multiplayer">
+                    <div className="game-card h-60 border-4 border-[#D10203] rounded-md bg-cover flex items-end justify-center" style={{ backgroundImage: `url(${multiplayerImg})` }}>
+                        <h1 className="card-title w-full bg-[#D10203] text-white px-4 py-1 text-4xl font-bold text-center">
+                            Multiplayer
+                        </h1>
+                    </div>
+                </Link>
                 <Link to="/settings">
                     <div className="game-card h-60 border-4 border-[#069CCE] rounded-md bg-cover flex items-end justify-center" style={{ backgroundImage: `url(${settingImg})` }}>
                         <h1 className="card-title w-full bg-[#069CCE] text-white px-4 py-1 text-4xl font-bold text-center">
@@ -29,24 +43,12 @@ function HomePage() {
                         </h1>
                     </div>
                 </Link>
-                <Link to="/play">
-                    <div className="game-card h-60 border-4 border-[#FF8500] rounded-md bg-cover flex items-end justify-center" style={{ backgroundImage: `url(${singleplayerImg})` }}>
-                        <h1 className="card-title w-full bg-[#FF8500] text-white px-4 py-1 text-4xl font-bold text-center">
-                            Singleplayer
-                        </h1>
-                    </div>
-                </Link>
-                <div className="game-card h-60 border-4 border-[#D10203] rounded-md bg-cover flex items-end justify-center" style={{ backgroundImage: `url(${multiplayerImg})` }}>
-                    <h1 className="card-title w-full bg-[#D10203] text-white px-4 py-1 text-4xl font-bold text-center">
-                        Multiplayer
-                    </h1>
-                </div>
             </div>
         </div>
         // <div className="text-white text-center w-full">
         //     <h1 className="text-6xl mb-8">Hidden Object Find!</h1>
         //     <div className="flex gap-4 items-center justify-center">
-        //         <Link to="/play">
+        //         <Link to="/singleplay">
         //             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-8 py-2 mb-2 text-xl">Play</button>
         //         </Link>
         //     </div>

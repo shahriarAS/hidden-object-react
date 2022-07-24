@@ -25,6 +25,7 @@ const initialState = {
     gameWon: false,
     reduceTime: false,
     showHint: false,
+    isLoading: false,
     targetItems: {
         level1: [
             { file: "1_1", position: [54, 40] },
@@ -130,6 +131,9 @@ const useStore = create(set => ({
     })),
     setShowHint: (val) => set(state => ({
         showHint: val
+    })),
+    setIsLoading: (val) => set(state => ({
+        isLoading: val
     })),
     addGamePlayed: (val) => set(state => ({
         gamePlayed: [

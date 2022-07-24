@@ -7,10 +7,12 @@ import { Link } from "react-router-dom";
 import FormDiv from "../../components/page/FormDiv";
 import { auth, db } from "../../config/firebaseConfig";
 import useResetState from "../../hooks/useResetState";
+import useStore from "../../store";
 
 
 
 function LoginForm() {
+    const state = useStore((state) => state)
     const resetState = useResetState()
     const { register, handleSubmit, formState: { errors } } = useForm();
 

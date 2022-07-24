@@ -9,8 +9,11 @@ import Loading from "./components/root/Loading";
 import { auth, db } from './config/firebaseConfig.js';
 import GameScreen from "./pages/GameScreen";
 import HomePage from './pages/HomePage';
+import HostGame from "./pages/HostGame";
+import JoinGame from "./pages/JoinGame";
 import Leaderboard from "./pages/Leaderboard";
 import Login from './pages/Login';
+import Multiplayer from "./pages/Multiplayer";
 import NewGameScreen from './pages/NewGameScreen';
 import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
@@ -60,8 +63,17 @@ function App() {
           <Route path="/" element={
             <Layout childComp={<HomePage />} />
           } />
-          <Route path="/play" element={
+          <Route path="/singleplay" element={
             <GameScreen />
+          } />
+          <Route path="/multiplayer" element={
+            <Layout childComp={user ? <Multiplayer /> : <Login />} />
+          } />
+          <Route path="/multiplayer/host" element={
+            <Layout childComp={user ? <HostGame /> : <Login />} />
+          } />
+          <Route path="/multiplayer/join" element={
+            <Layout childComp={user ? <JoinGame /> : <Login />} />
           } />
           <Route path="/new" element={
             <Layout childComp={<NewGameScreen />} />
