@@ -32,6 +32,8 @@ function App() {
       const data = docSnap.data()
       localStorage.setItem("gameLevel", data.level)
       state.resetState({
+        highScore: data.highScore,
+        bestTime: data.bestTime,
         level: data.level,
         isSound: data.settings.isSound,
         isMusic: data.settings.isMusic,

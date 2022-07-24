@@ -9,6 +9,7 @@ import statBG from "../../assets/images/stat-bg.png";
 import { auth, db } from '../../config/firebaseConfig';
 import useStore from "../../store";
 import generateRandom from '../../utils/generateRandom';
+import globalVariable from "../../utils/globalVariable";
 import secondsToMinute from "../../utils/secondsToMinute";
 
 function GameOverModal() {
@@ -67,16 +68,21 @@ function GameOverModal() {
                     await updateDoc(gamePlayedRef, {
                         totalScore: increment(state.score),
                         totalTime: increment(state.time),
+                        winCount: increment(1),
+                        totalMatch: increment(1),
+                        highScore: state.score > state.highScore ? state.score : increment(0),
+                        bestTime: state.time > state.bestTime ? state.time : increment(0),
                         [`gamePlayed.${gameID}`]: {
                             level: state.level,
                             score: state.score,
                             time: state.time,
                             hintTook: state.hintTook,
                             gameWon: true,
+                            createdAt: Date.now()
                         }
                     });
                 }
-                state.time != 0 ? updateWindDoc() : null
+                state.time != "init" ? updateWindDoc() : null
 
                 if (state.level != state.maxLevel) {
                     const updateLeveldDoc = async () => {
@@ -84,7 +90,7 @@ function GameOverModal() {
                             level: increment(1)
                         })
                     }
-                    state.time != 0 ? updateLeveldDoc() : null
+                    state.time != "init" ? updateLeveldDoc() : null
                 }
             }
 
@@ -105,17 +111,21 @@ function GameOverModal() {
                     await updateDoc(gamePlayedRef, {
                         totalScore: increment(state.score),
                         totalTime: increment(state.time),
+                        totalMatch: increment(1),
+                        highScore: state.score > state.highScore ? state.score : increment(0),
+                        bestTime: state.time > state.bestTime ? state.time : increment(0),
                         [`gamePlayed.${gameID}`]: {
                             level: state.level,
                             score: state.score,
                             time: state.time,
                             hintTook: state.hintTook,
                             gameWon: false,
+                            createdAt: Date.now()
                         }
                     });
                 }
 
-                state.time != 0 ? updateLostdDoc() : null
+                state.time != "init" ? updateLostdDoc() : null
             }
         }
     }, [state.targetItems, state.gameOver, state.time]);
@@ -125,7 +135,7 @@ function GameOverModal() {
             <div className="relative p-4 w-1/2 max-w-md h-full md:h-auto" ref={imageRef}>
                 <div className="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
                     <div className="py-12 pl-4 text-center mt-4 flex flex-col justify-between">
-                        <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == 6 ? "Won" : "Over"}!</h1>
+                        <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
                         <h1 className="text-gray-100 text-2xl mb-2">Your Score: {state.score}</h1>
                         <h1 className="text-gray-100 text-2xl">Total Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                         <div className="flex items-center justify-center gap-4 mt-8">
@@ -133,17 +143,17 @@ function GameOverModal() {
                                 <Link to="/">Menu</Link>
                             </button>
                             {
-                                (state.score < 6) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                (state.score < globalVariable.maxScore) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                     Restart
                                 </button>) : null
                             }
                             {
-                                (state.level != state.maxLevel & state.score == 6) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                (state.level != state.maxLevel & state.score == globalVariable.maxScore) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                     Next Level
                                 </button>) : null
                             }
                             {
-                                state.score == 6 ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
+                                state.score == globalVariable.maxScore ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
                             }
                         </div>
                     </div>

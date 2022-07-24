@@ -32,11 +32,16 @@ function RegForm() {
                         email: data.email,
                         totalScore: 0,
                         totalTime: 0,
+                        winCount: 0,
+                        highScore: 0,
+                        bestTime: 0,
+                        totalMatch: 0,
                         settings: {
                             isSound: localStorage.getItem('isSound') || true,
                             isMusic: localStorage.getItem('isMusic') || true,
                             isFullScreen: localStorage.getItem('isFullScreen') || true,
                         },
+                        gamePlayed: {},
                         level: localStorage.getItem('gameLevel') || 1,
                     });
                     toast.success("Successfully Registered and Signed In.")

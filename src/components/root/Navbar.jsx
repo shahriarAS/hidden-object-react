@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import toast from "react-hot-toast";
-import { BiHomeAlt, BiInfoCircle, BiLike, BiLogIn, BiLogOut, BiUser } from "react-icons/bi";
+import { BiBarChartAlt2, BiHomeAlt, BiInfoCircle, BiLogIn, BiLogOut, BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { auth } from "../../config/firebaseConfig";
 import Loading from "./Loading";
@@ -35,8 +35,8 @@ function Navbar() {
                         <p className=''>About Us</p>
                     </div>
                     <div className="nav-item flex items-center justify-between gap-1">
-                        <BiLike />
-                        <p className=''>Rate</p>
+                        <BiBarChartAlt2 />
+                        <p className=''>Leaderboard</p>
                     </div>
                     {
                         user ? (
