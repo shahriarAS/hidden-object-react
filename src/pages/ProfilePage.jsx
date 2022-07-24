@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import globeImg from "../assets/images/Page/Common/globe.png";
 import registerImg from "../assets/images/Page/Common/sideImage.png";
+import greyMap from "../assets/images/Page/Leaderboard/grey-map.png";
 import MatchHistory from "../components/page/MatchHistory";
+import ProfileChart from "../components/page/ProfileChart";
 import UpdateForm from "../components/page/UpdateForm";
 import Loading from "../components/root/Loading";
 import { auth, db } from '../config/firebaseConfig';
 import useStore from "../store/index";
-import ProfileChart from "./ProfileChart";
 
 function ProfilePage() {
     const [loadingData, setLoadingData] = useState(true);
@@ -43,7 +44,7 @@ function ProfilePage() {
         loadingData ? (<Loading />) : (
             <div className="register-page h-full flex flex-col justify-center font-bubblegum text-[#424242] uppercase">
                 <div className="profile-top flex">
-                    <div className="register-form p-10 relative flex-1 bg-cover bg-center bg-no-repeat bg-blend-multiply bg-gray-200">
+                    <div className="register-form p-10 relative flex-1 bg-cover bg-center bg-no-repeat bg-blend-overlay bg-white/50" style={{ backgroundImage: `url(${greyMap})` }}>
                         <img src={globeImg} alt="Globe" className="absolute w-64 bottom-0 -left-40" />
                         <div className="register-area w-1/2 h-full py-6 m-auto flex flex-col items-center">
                             <h1 className="register-title text-7xl self-start">Profile</h1>

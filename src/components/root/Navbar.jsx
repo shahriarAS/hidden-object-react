@@ -34,10 +34,12 @@ function Navbar() {
                         <BiInfoCircle />
                         <p className=''>About Us</p>
                     </div>
-                    <div className="nav-item flex items-center justify-between gap-1">
-                        <BiBarChartAlt2 />
-                        <p className=''>Leaderboard</p>
-                    </div>
+                    <Link to="/leaderboard">
+                        <div className="nav-item flex items-center justify-between gap-1">
+                            <BiBarChartAlt2 />
+                            <p className=''>Leaderboard</p>
+                        </div>
+                    </Link>
                     {
                         user ? (
                             <>

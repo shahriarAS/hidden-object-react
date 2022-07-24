@@ -9,15 +9,13 @@ import Loading from "./components/root/Loading";
 import { auth, db } from './config/firebaseConfig.js';
 import GameScreen from "./pages/GameScreen";
 import HomePage from './pages/HomePage';
+import Leaderboard from "./pages/Leaderboard";
 import Login from './pages/Login';
 import NewGameScreen from './pages/NewGameScreen';
 import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 import useStore from "./store";
-
-
-
 
 function App() {
   const state = useStore((state) => state)
@@ -77,6 +75,9 @@ function App() {
           } />
           <Route path="/profile" element={
             <Layout childComp={user ? <ProfilePage /> : <Login />} />
+          } />
+          <Route path="/leaderboard" element={
+            <Layout childComp={<Leaderboard />} />
           } />
         </Routes>
       </div>
