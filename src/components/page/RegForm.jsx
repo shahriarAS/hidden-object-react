@@ -6,9 +6,11 @@ import toast from "react-hot-toast";
 import { FaLock, FaRegEnvelope, FaRegEye, FaUserCircle } from "react-icons/fa";
 import FormDiv from "../../components/page/FormDiv";
 import { auth, db } from "../../config/firebaseConfig.js";
+import useResetState from "../../hooks/useResetState";
 
 
 function RegForm() {
+    const resetState = useResetState()
     const randomGameId = useId()
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
@@ -37,14 +39,14 @@ function RegForm() {
                         bestTime: 0,
                         totalMatch: 0,
                         settings: {
-                            isSound: localStorage.getItem('isSound') || true,
-                            isMusic: localStorage.getItem('isMusic') || true,
-                            isFullScreen: localStorage.getItem('isFullScreen') || true,
+                            isSound: true,
+                            isMusic: true
                         },
                         gamePlayed: {},
-                        level: localStorage.getItem('gameLevel') || 1,
+                        level: 1,
                     });
                     toast.success("Successfully Registered and Signed In.")
+                    resetState()
                 }).catch((error) => {
                     // An error occurred
                     // ...

@@ -45,8 +45,10 @@ function App() {
   useEffect(() => {
     if (user) {
       getDataOnce()
+      console.log("getDataOnce()")
     } else {
       state.resetState()
+      console.log("state.resetState()")
     }
   }, [user]);
 

@@ -8,7 +8,6 @@ import greyMap from "../assets/images/Page/Leaderboard/grey-map.png";
 import Loading from "../components/root/Loading";
 import { auth, db } from '../config/firebaseConfig';
 import useStore from "../store/index";
-import globalVariable from "../utils/globalVariable";
 import secondsToMinute from "../utils/secondsToMinute";
 
 function Leaderboard() {
@@ -28,10 +27,12 @@ function Leaderboard() {
             toAddAllData.push(doc.data())
         });
 
-        toAddAllData.sort(function (userDataOne, userDataTwo) {
+        function rankingFunction(userDataOne, userDataTwo) {
             // Ranking Algorithm
-            return (userDataOne.totalScore + userDataOne.winCount + (globalVariable.maxTime - userDataOne.totalTime)) - (userDataTwo.totalScore + userDataTwo.winCount + (globalVariable.maxTime - userDataTwo.totalTime));
-        });
+            return (180 - userDataTwo.bestTime + userDataTwo.totalScore + userDataTwo.winCount) - (180 - userDataOne.bestTime + userDataOne.totalScore + userDataOne.winCount);
+        }
+
+        toAddAllData.sort(rankingFunction);
 
         setAllUserData(toAddAllData)
         setLoadingData(false)
@@ -40,14 +41,12 @@ function Leaderboard() {
     }
 
     useEffect(() => {
-        if (user) {
-            getDataOnce()
-        }
-    }, [user]);
+        getDataOnce()
+    }, []);
 
     return (
         loadingData ? (<Loading />) : (
-            <div className="h-screen w-full font-bubblegum bg-cover bg-blend-overlay bg-white/40 text-[#424242]  uppercase flex flex-col items-center p-10" style={{ backgroundImage: `url(${greyMap})` }
+            <div className="min-h-screen w-full font-bubblegum bg-cover bg-blend-overlay bg-white/40 text-[#424242]  uppercase flex flex-col items-center p-10" style={{ backgroundImage: `url(${greyMap})` }
             }>
                 <h1 className="leaderboard-title uppercase text-5xl">
                     Leaderboard

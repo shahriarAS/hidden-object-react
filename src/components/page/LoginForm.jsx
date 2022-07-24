@@ -5,15 +5,16 @@ import toast from "react-hot-toast";
 import { FaLock, FaRegEnvelope, FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FormDiv from "../../components/page/FormDiv";
-import { auth } from "../../config/firebaseConfig";
+import { auth, db } from "../../config/firebaseConfig";
+import useResetState from "../../hooks/useResetState";
 
 
 
 function LoginForm() {
+    const resetState = useResetState()
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        console.log(data)
         signInWithEmailAndPassword(auth, data.email, data.password)
             .then(async (userCredential) => {
                 const user = userCredential.user;
@@ -28,18 +29,21 @@ function LoginForm() {
                     console.log("No such document!");
                 }
                 toast.success("Successfully Logged In.")
+                resetState()
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(error.code)
+                console.log(error)
                 switch (error.code) {
                     case "auth/wrong-password":
                         toast.error("Email or Password Wrong. Try agian.")
                         break;
                     default:
+                        toast.error("Email or Password Wrong. Try agian.")
                         break;
                 }
+                resetState()
             });
     }
 
