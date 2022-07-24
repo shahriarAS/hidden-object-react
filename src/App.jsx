@@ -35,6 +35,7 @@ function App() {
         level: data.level,
         isSound: data.settings.isSound,
         isMusic: data.settings.isMusic,
+        difficulty: data.settings.difficulty
       })
     } else {
       console.log("No such document!");
