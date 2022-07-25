@@ -26,11 +26,17 @@ function GameArea() {
             e.target.classList.add("bounce-out-top")
             // toast.success('Correct! Got 1 Point.')
 
+            if (state.gameMode == "multiplayer") {
+                socket.emit("addScore", 1)
+            }
+            
             setTimeout(function () {
                 e.target.style.visibility = "hidden"
                 e.target.style.opacity = 0
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
+
+
                 setTimeout(function () {
                     vanishEl.classList.add("hidden")
                 }, 400);
@@ -62,6 +68,7 @@ function GameArea() {
             levelList.push(parseInt(state.level))
         }
 
+        // Dynamic Import
         levelList.forEach(i => {
             state.targetItems[`level${i}`].forEach(imgName => {
                 import(`../../assets/images/${imgName.file}.png`).then(image => {

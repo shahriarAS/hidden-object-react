@@ -10,6 +10,7 @@ import generatePosition from '../utils/generatePosition';
 // });
 
 const initialState = {
+    gameMode: "singleplay",
     score: 0,
     maxLevel: 7,
     hintTook: 0,
@@ -88,6 +89,9 @@ const initialState = {
 
 const useStore = create(set => ({
     ...initialState,
+    setGameMode: (mode) => set(state => ({
+        gameMode: mode
+    })),
     addScore: () => set(state => ({
         score: state.score + 1
     })),

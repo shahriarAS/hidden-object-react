@@ -3,14 +3,13 @@ import { useEffect } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from "react-router-dom";
+import { io } from "socket.io-client";
 import "./App.css";
 import Layout from './components/root/Layout';
 import Loading from "./components/root/Loading";
 import { auth, db } from './config/firebaseConfig.js';
 import GameScreen from "./pages/GameScreen";
 import HomePage from './pages/HomePage';
-import HostGame from "./pages/HostGame";
-import JoinGame from "./pages/JoinGame";
 import Leaderboard from "./pages/Leaderboard";
 import Login from './pages/Login';
 import Multiplayer from "./pages/Multiplayer";
@@ -19,7 +18,8 @@ import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 import useStore from "./store";
-
+const socket = io("http://localhost:3000");
+  
 function App() {
   const state = useStore((state) => state)
   const [user, loading, error] = useAuthState(auth);
@@ -45,6 +45,10 @@ function App() {
     }
   }
 
+  socket.on('connect', () => {
+    console.log("Connected: ", socket.id)
+  });
+
   useEffect(() => {
     if (user) {
       getDataOnce()
@@ -68,12 +72,6 @@ function App() {
           } />
           <Route path="/multiplayer" element={
             <Layout childComp={user ? <Multiplayer /> : <Login />} />
-          } />
-          <Route path="/multiplayer/host" element={
-            <Layout childComp={user ? <HostGame /> : <Login />} />
-          } />
-          <Route path="/multiplayer/join" element={
-            <Layout childComp={user ? <JoinGame /> : <Login />} />
           } />
           <Route path="/new" element={
             <Layout childComp={<NewGameScreen />} />
