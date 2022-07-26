@@ -1,14 +1,31 @@
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
+import useStore from "../../store";
+import generateRandomInRange from "../../utils/generateRandomInRange";
 
-function JoinModal({ openJoinModal, setOpenJoinModal }) {
+function JoinModal({ openJoinModal, setOpenJoinModal, setStartGame }) {
+    const state = useStore((state) => state)
     const [gameCode, setGameCode] = useState("")
+    const socket = useStore((state) => state.socket)
+    const [joinMsg, setJoinMsg] = useState()
 
     const closeModalOnShadowClick = (e) => {
         if (e.target.id == "overlay") {
             setOpenJoinModal(false)
         }
     }
+
+    const joinGameClick = () => {
+        state.setGameCode(gameCode)
+        const level = generateRandomInRange(1, 8)
+        state.setLevel(level)
+        socket.emit("join-game", gameCode, level)
+    }
+
+    socket.on("other-joined", (msg) => {
+        setJoinMsg(msg)
+        setStartGame(true)
+    })
 
     return (
         <div id="overlay" className={`fixed transition-all duration-700 w-full h-screen inset-0 ${openJoinModal ? "inset-0" : "-left-[100%]"} bg-gray-800/50 flex items-center justify-center`} onClick={(e) => closeModalOnShadowClick(e)}>
@@ -27,9 +44,13 @@ function JoinModal({ openJoinModal, setOpenJoinModal }) {
                             Paste
                         </p> */}
                     </div>
-                    <button type="submit" className="register-btn mt-4 px-12 py-2 bg-[#A900FD] text-white text-2xl rounded-3xl drop-shadow-2xl">
-                        Join
-                    </button>
+                    {
+                        joinMsg ? <p className="register-text mt-4 px-12 py-2 text-lg rounded-3xl drop-shadow-2xl">{joinMsg}</p> : (
+                            <button onClick={joinGameClick} className="register-btn mt-4 px-12 py-2 bg-[#A900FD] text-white text-2xl rounded-3xl drop-shadow-2xl">
+                                Join
+                            </button>
+                        )
+                    }
                 </div>
             </div>
         </div>

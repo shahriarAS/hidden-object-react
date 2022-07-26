@@ -8,6 +8,7 @@ import greyMap from "../assets/images/Page/Leaderboard/grey-map.png";
 import Loading from "../components/root/Loading";
 import { auth, db } from '../config/firebaseConfig';
 import useStore from "../store/index";
+import globalVariable from "../utils/globalVariable";
 import secondsToMinute from "../utils/secondsToMinute";
 
 function Leaderboard() {
@@ -29,7 +30,7 @@ function Leaderboard() {
 
         function rankingFunction(userDataOne, userDataTwo) {
             // Ranking Algorithm
-            return (180 - userDataTwo.bestTime + userDataTwo.totalScore + userDataTwo.winCount) - (180 - userDataOne.bestTime + userDataOne.totalScore + userDataOne.winCount);
+            return (globalVariable.maxTime - userDataTwo.bestTime + userDataTwo.totalScore + userDataTwo.winCount) - (globalVariable.maxTime - userDataOne.bestTime + userDataOne.totalScore + userDataOne.winCount);
         }
 
         toAddAllData.sort(rankingFunction);

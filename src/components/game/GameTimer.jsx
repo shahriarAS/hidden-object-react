@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import statBG from "../../assets/images/stat-bg.png";
 import useStore from "../../store";
+import globalVariable from '../../utils/globalVariable';
 
 const GameTimer = () => {
     var time = new Date();
-    // const [duration, setDuration] = useState(time.setSeconds(time.getSeconds() + 180))
     const state = useStore((state) => state)
 
     const {
@@ -14,17 +14,17 @@ const GameTimer = () => {
         pause,
         resume,
         restart,
-    } = useTimer({ expiryTimestamp: time.setSeconds(time.getSeconds() + 180), autoStart: true, onExpire: () => state.setGameOver(true) });
+    } = useTimer({ expiryTimestamp: time.setSeconds(time.getSeconds() + globalVariable?.maxTime), autoStart: true, onExpire: () => state.setGameOver(true) });
 
     const reduceTimeFunc = () => {
         // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
-        restart(time.setSeconds(time.getSeconds() - (((2 - minutes) * 60) + (60 - seconds) + 10)))
+        restart(time.setSeconds(time.getSeconds() - (((((globalVariable?.maxTime / 60) - 1) - minutes) * 60) + (60 - seconds) + 10)))
     }
 
     useEffect(() => {
         if (state.gamePause == true || state.gameOver == true) {
             // Remain Time = Total Time - Passed Time
-            state.setTime(((2 - minutes) * 60) + (60 - seconds))
+            state.setTime(((((globalVariable?.maxTime / 60) - 1) - minutes) * 60) + (60 - seconds))
             pause()
             console.log("Now Pause")
         } else if (state.gamePause != true && state.gameOver != true) {

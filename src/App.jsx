@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from "react-router-dom";
-import { io } from "socket.io-client";
 import "./App.css";
 import Layout from './components/root/Layout';
 import Loading from "./components/root/Loading";
@@ -18,10 +17,10 @@ import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 import useStore from "./store";
-const socket = io("http://localhost:3000");
-  
+
 function App() {
   const state = useStore((state) => state)
+  const socket = useStore((state) => state.socket)
   const [user, loading, error] = useAuthState(auth);
 
 
@@ -70,8 +69,11 @@ function App() {
           <Route path="/singleplay" element={
             <GameScreen />
           } />
-          <Route path="/multiplayer" element={
+          {/* <Route path="/multiplayer" element={
             <Layout childComp={user ? <Multiplayer /> : <Login />} />
+          } /> */}
+          <Route path="/multiplayer" element={
+            <Layout childComp={<Multiplayer />} />
           } />
           <Route path="/new" element={
             <Layout childComp={<NewGameScreen />} />

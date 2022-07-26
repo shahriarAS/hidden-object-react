@@ -1,17 +1,18 @@
 // store/index.js
-// import { doc, onSnapshot } from "firebase/firestore";
-import { mountStoreDevtool } from 'simple-zustand-devtools';
-import create from 'zustand';
-// import { db } from "../config/firebaseConfig.js";
-import generatePosition from '../utils/generatePosition';
 
-// const unsub = onSnapshot(doc(db, "users", "SF"), (doc) => {
-//     console.log("Current data: ", doc.data());
-// });
+import { mountStoreDevtool } from 'simple-zustand-devtools';
+import { io } from "socket.io-client";
+import create from 'zustand';
+import generatePosition from '../utils/generatePosition';
+const socket = io("http://localhost:3000");
+console.log(socket.id)
 
 const initialState = {
+    socket: socket,
     gameMode: "singleplay",
+    gameCode: "",
     score: 0,
+    opponentScore: 0,
     maxLevel: 7,
     hintTook: 0,
     level: localStorage.getItem('gameLevel') || 1,
@@ -92,8 +93,17 @@ const useStore = create(set => ({
     setGameMode: (mode) => set(state => ({
         gameMode: mode
     })),
+    setGameCode: (val) => set(state => ({
+        gameCode: val
+    })),
     addScore: () => set(state => ({
         score: state.score + 1
+    })),
+    addOpponentScore: () => set(state => ({
+        opponentScore: state.opponentScore + 1
+    })),
+    setLevel: (val) => set(state => ({
+        level: val
     })),
     addLevel: () => set(state => ({
         level: state.level + 1

@@ -12,6 +12,7 @@ function GameArea() {
     const [imgItemState, setImgItemState] = useState([]);
     const vanishRef = useRef()
     const state = useStore((state) => state)
+    const socket = useStore((state) => state.socket)
     const [playRightSound] = useSound(rightSound);
     const [playWrongSound] = useSound(wrongSound);
 
@@ -24,12 +25,12 @@ function GameArea() {
             vanishEl.style.top = `${e.target.y - (e.target.height + 20)}px`
             vanishEl.classList.remove("hidden")
             e.target.classList.add("bounce-out-top")
-            // toast.success('Correct! Got 1 Point.')
-
+            // toast.success('Correct! Got 1 Point.')            
             if (state.gameMode == "multiplayer") {
-                socket.emit("addScore", 1)
+                console.log("Socket Emit Add: ", e.target)
+                socket.emit("add-score", state.gameCode, e.target.id, item)
             }
-            
+
             setTimeout(function () {
                 e.target.style.visibility = "hidden"
                 e.target.style.opacity = 0

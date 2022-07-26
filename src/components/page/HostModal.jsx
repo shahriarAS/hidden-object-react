@@ -1,10 +1,14 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { GrClose } from "react-icons/gr";
+import useStore from "../../store";
 import generateRandom from "../../utils/generateRandom";
 
-function HostModal({ openHostModal, setOpenHostModal }) {
+function HostModal({ openHostModal, setOpenHostModal, setStartGame }) {
+    const state = useStore((state) => state)
+    const socket = useStore((state) => state.socket)
     const [gameCode, setGameCode] = useState(generateRandom())
+    const [hostMsg, setHostMsg] = useState()
 
     const copyGameCodeOnClick = () => {
         navigator.clipboard.writeText(gameCode)
@@ -18,6 +22,19 @@ function HostModal({ openHostModal, setOpenHostModal }) {
             setOpenHostModal(false)
         }
     }
+
+    const hostGameClick = () => {
+        state.setGameCode(gameCode)
+        socket.emit("host-game", gameCode, (hostResponse) => {
+            setHostMsg(hostResponse)
+        })
+    }
+
+    socket.on("other-joined", (msg, gameLevel) => {
+        setHostMsg(msg)
+        state.setLevel(gameLevel)
+        setStartGame(true)
+    })
 
     return (
         <div id="overlay" className={`fixed transition-all duration-700 w-full h-screen inset-0 ${openHostModal ? "inset-0" : "-left-[100%]"} bg-gray-800/50 flex items-center justify-center`} onClick={(e) => closeModalOnShadowClick(e)}>
@@ -38,9 +55,13 @@ function HostModal({ openHostModal, setOpenHostModal }) {
                             Copy
                         </p>
                     </div>
-                    <button type="submit" className="register-btn mt-4 px-12 py-2 bg-[#A900FD] text-white text-2xl rounded-3xl drop-shadow-2xl">
-                        Host
-                    </button>
+                    {
+                        hostMsg ? <p className="register-text mt-4 px-12 py-2 text-lg rounded-3xl drop-shadow-2xl">{hostMsg}</p> : (
+                            <button onClick={hostGameClick} className="register-btn mt-4 px-12 py-2 bg-[#A900FD] text-white text-2xl rounded-3xl drop-shadow-2xl">
+                                Host
+                            </button>
+                        )
+                    }
                 </div>
             </div>
         </div>

@@ -1,9 +1,34 @@
+import { useEffect, useState } from "react";
 import statBG from "../../assets/images/stat-bg.png";
 import useStore from "../../store";
+import getFilename from "../../utils/getFilename";
 import GameTimer from "./GameTimer";
 
 function GameStat() {
+    const [opponentScore, setAddOpponentScore] = useState(0)
     const state = useStore((state) => state)
+    const socket = useStore((state) => state.socket)
+
+    useEffect(() => {
+        socket.on("show-score", (targetID, item) => {
+            setAddOpponentScore(prevState => prevState + 1)
+            state.removeTargetItem(state.level, getFilename(item))
+            const targetEl = document.getElementById(targetID)
+
+            targetEl.classList.add("bounce-out-top")
+
+            setTimeout(function () {
+                targetEl.style.visibility = "hidden"
+                targetEl.style.opacity = 0
+                state.removeTargetItem(state.level, getFilename(item))
+            }, 400);
+        })
+
+        return () => {
+            socket.remove("show-score")
+        }
+    }, [socket]);
+
 
     return (
         <>
@@ -20,7 +45,7 @@ function GameStat() {
                         <img src={statBG} alt="" className="aboslute inset-0 w-full h-full" />
                         <div className="absolute ">
                             <p className="flex flex-wrap px-4 pt-4">Opponent Score:</p>
-                            <p>{state.score}</p>
+                            <p>{opponentScore}</p>
                         </div>
                     </div>
                 ) : null
