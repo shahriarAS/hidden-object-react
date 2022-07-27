@@ -91,6 +91,9 @@ function App() {
           <Route path="/leaderboard" element={
             <Layout childComp={<Leaderboard />} />
           } />
+          <Route path="*" element={
+            <Layout childComp={<h1>404 Not Found</h1>} />
+          } />
         </Routes>
       </div>
     )

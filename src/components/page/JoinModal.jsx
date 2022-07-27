@@ -4,9 +4,9 @@ import { GrClose } from "react-icons/gr";
 import useStore from "../../store";
 import generateRandomInRange from "../../utils/generateRandomInRange";
 
-function JoinModal({ openJoinModal, setOpenJoinModal, setStartGame }) {
+function JoinModal({ openJoinModal, setOpenJoinModal, setStartGame, gameCodeQuery }) {
     const state = useStore((state) => state)
-    const [gameCode, setGameCode] = useState("")
+    const [gameCode, setGameCode] = useState(gameCodeQuery ? gameCodeQuery : "")
     const socket = useStore((state) => state.socket)
     const [joinMsg, setJoinMsg] = useState()
 
