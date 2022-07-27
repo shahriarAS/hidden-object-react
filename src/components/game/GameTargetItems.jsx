@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import grid from "../../assets/images/grid.png";
 import useStore from "../../store";
+import getFilename from "../../utils/getFilename";
 
 function GameTargetItems() {
     const [imgItemState, setImgItemState] = useState([]);
@@ -24,7 +25,7 @@ function GameTargetItems() {
             {
                 imgItemState.map(
                     item => (
-                        <div key={item} onClick={() => removeItem(item)} className="target p-2 w-20 h-20 bg-no-repeat bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: `url(${grid})` }}>
+                        <div key={item} id={getFilename(item)} onClick={() => removeItem(item)} className="target p-2 w-20 h-20 bg-no-repeat bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: `url(${grid})` }}>
                             <img src={item} alt="Object 5" />
                         </div>
                     )

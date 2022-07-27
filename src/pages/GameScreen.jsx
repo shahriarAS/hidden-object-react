@@ -8,6 +8,7 @@ import GameOverModal from "../components/game/GameOverModal";
 import GamePauseModal from "../components/game/GamePauseModal";
 import GameTargetItems from "../components/game/GameTargetItems";
 import useStore from "../store/index";
+import globalVariable from "../utils/globalVariable";
 
 function GameScreen() {
     const state = useStore((state) => state)
@@ -42,11 +43,13 @@ function GameScreen() {
     };
 
     const hintExecute = () => {
-        if (state.hintTook < 2) {
+        if (state.hintTook < globalVariable.maxHint) {
             const imgEl = appRef.current
-            const gameScreenNode = imgEl.childNodes[0].childNodes
+            const gameScreenNode = imgEl.childNodes[1].childNodes
+            console.log(gameScreenNode)
             let isBreak = false
             gameScreenNode.forEach(node => {
+                console.log(node)
                 if (state.showHint & state.targetItems[`level${state.level}`].map(i => i.file).includes(node.id) & isBreak == false) {
                     node.classList.add("border-8", "border-red-500", "rounded-full", "jello-horizontal")
                     setTimeout(function () {

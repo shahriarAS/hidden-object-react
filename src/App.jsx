@@ -57,7 +57,7 @@ function App() {
       state.resetState()
       console.log("state.resetState()")
     }
-  }, [user]);
+  }, [user, state.level]);
 
   return (
     loading ? <Loading /> : (

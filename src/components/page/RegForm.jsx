@@ -65,10 +65,11 @@ function RegForm() {
                 const errorMessage = error.message;
                 console.log(error)
                 switch (error.code) {
-                    case "auth/email-already-exists":
+                    case "auth/email-already-in-use":
                         toast.error("User with email is already exists. Try to login.")
                         break;
                     default:
+                        toast.error("Something happende. Please try again.")
                         break;
                 }
             });

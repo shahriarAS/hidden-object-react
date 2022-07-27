@@ -190,16 +190,18 @@ function GameOverModal() {
 
         } else if (state.gameOver == true) {
             // When Target items left and time is finished.
+            state.isSound ? playGameOverSound() : null
 
             if (state.gameMode == "singleplayer") {
                 if (user) {
                     const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
                     const gameID = generateRandom()
 
-                    const updateLostdDoc = async () => {
+                    const updateSingledDoc = async () => {
                         await updateDoc(gamePlayedRef, {
                             totalScore: increment(state.score),
                             totalTime: increment(state.time),
+                            winCount: (state.score == globalVariable.maxScore) ? increment(1) : increment(0),
                             totalMatch: increment(1),
                             highScore: state.score > state.highScore ? state.score : increment(0),
                             bestTime: state.time > state.bestTime ? state.time : increment(0),
@@ -209,14 +211,28 @@ function GameOverModal() {
                                 opponentScore: 0,
                                 time: state.time,
                                 hintTook: state.hintTook,
-                                gameWon: false,
+                                gameWon: (state.score == globalVariable.maxScore) ? true : false,
                                 gameMode: state.gameMode,
                                 createdAt: Date.now()
                             }
                         });
                     }
 
-                    state.time != "init" ? updateLostdDoc() : null
+                    state.time != "init" ? updateSingledDoc() : null
+
+                    if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
+                        const updateLeveldDoc = async () => {
+                            await updateDoc(gamePlayedRef, {
+                                level: increment(1)
+                            })
+                        }
+                        state.time != "init" ? updateLeveldDoc() : null
+                    }
+
+                    if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
+                        state.addLevel()
+                        localStorage.setItem("gameLevel", parseInt(state.level) + 1)
+                    }
                 }
             } else if (state.gameMode == "multiplayer") {
                 if (user) {
@@ -241,13 +257,14 @@ function GameOverModal() {
 
 
                     if (state.gameWon == false) {
-                        const updateLostdDoc = async () => {
+                        const updateMultiDoc = async () => {
                             // This is just dirty code. Somehow this function is rendering 2 times and unable to fix it. That's why this line to run only one.
                             state.setGameWon(true)
                             console.log("The time is: ", state.time)
                             await updateDoc(gamePlayedRef, {
                                 totalScore: increment(state.score),
                                 totalTime: increment(state.time),
+                                winCount: thisGameWon ? increment(1) : increment(0),
                                 totalMatch: increment(1),
                                 highScore: state.score > state.highScore ? state.score : increment(0),
                                 bestTime: state.time > state.bestTime ? state.time : increment(0),
@@ -263,7 +280,7 @@ function GameOverModal() {
                                 }
                             });
                         }
-                        state.time != "init" ? updateLostdDoc() : null
+                        state.time != "init" ? updateMultiDoc() : null
                     }
                 }
             }
