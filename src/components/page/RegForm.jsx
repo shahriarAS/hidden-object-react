@@ -9,7 +9,7 @@ import { auth, db } from "../../config/firebaseConfig.js";
 import useResetState from "../../hooks/useResetState";
 
 
-function RegForm() {
+function RegForm({ loading, setLoading }) {
     const [showPass, setShowPass] = useState(false)
     const resetState = useResetState()
     const randomGameId = useId()
@@ -21,6 +21,7 @@ function RegForm() {
     );
 
     const onSubmit = data => {
+        setLoading(true)
         createUserWithEmailAndPassword(auth, data.email, data.password)
             .then((userCredential) => {
                 updateProfile(auth.currentUser, {
@@ -46,6 +47,7 @@ function RegForm() {
                         gamePlayed: {},
                         level: 1,
                     });
+                    setLoading(false)
                     toast.success("Successfully Registered and Signed In.")
                     resetState()
                 }).catch((error) => {
@@ -54,14 +56,17 @@ function RegForm() {
                     console.log(error)
                     deleteUser(auth.currentUser).then(() => {
                         console.log("Deleted Errored User")
+                        setLoading(false)
                     }).catch((error) => {
                         // An error ocurred
                         // ...
                         console.log(error)
+                        setLoading(false)
                     });
                 });
             })
             .catch((error) => {
+                setLoading(false)
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(error)
@@ -85,7 +90,7 @@ function RegForm() {
                         value: /^[a-z0-9_.]+$/i,
                         message: "Usernames can only use letters, numbers, underscores, and periods."
                     }
-                })} type="text" className="w-full bg-transparent" />
+                })} type="text" className="w-full bg-transparent outline-none" />
 
             </FormDiv>
 
@@ -96,13 +101,13 @@ function RegForm() {
                         value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i,
                         message: "Invalid Email."
                     }
-                })} type="email" className="w-full bg-transparent" />
+                })} type="email" className="w-full bg-transparent outline-none" />
 
             </FormDiv>
 
             <FormDiv setShowPass={setShowPass} label="Password" icon={<FaLock />} icon2={showPass ? <FaRegEyeSlash /> : <FaRegEye />} error={errors.password?.message}>
 
-                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type={showPass ? "text" : "password"} className="w-full bg-transparent" />
+                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type={showPass ? "text" : "password"} className="w-full bg-transparent outline-none" />
 
             </FormDiv>
 

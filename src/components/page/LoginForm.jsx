@@ -12,13 +12,14 @@ import useStore from "../../store";
 
 
 
-function LoginForm() {
+function LoginForm({ loading, setLoading }) {
     const [showPass, setShowPass] = useState(false)
     const state = useStore((state) => state)
     const resetState = useResetState()
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
+        setLoading(true)
         signInWithEmailAndPassword(auth, data.email, data.password)
             .then(async (userCredential) => {
                 const user = userCredential.user;
@@ -32,10 +33,12 @@ function LoginForm() {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
                 }
+                setLoading(false)
                 toast.success("Successfully Logged In.")
                 resetState()
             })
             .catch((error) => {
+                setLoading(false)
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(error)
@@ -61,13 +64,13 @@ function LoginForm() {
                         value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i,
                         message: "Invalid Email."
                     }
-                })} type="email" className="w-full bg-transparent" />
+                })} type="email" className="w-full bg-transparent outline-none" />
 
             </FormDiv>
 
             <FormDiv setShowPass={setShowPass} label="Password" icon={<FaLock />} icon2={showPass ? <FaRegEyeSlash /> : <FaRegEye />} error={errors.password?.message}>
 
-                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type={showPass ? "text" : "password"} className="w-full bg-transparent" />
+                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type={showPass ? "text" : "password"} className="w-full bg-transparent outline-none" />
 
             </FormDiv>
 
