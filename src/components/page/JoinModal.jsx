@@ -19,7 +19,7 @@ function JoinModal({ openJoinModal, setOpenJoinModal, setStartGame }) {
         state.setGameCode(gameCode)
         const level = generateRandomInRange(1, 8)
         state.setLevel(level)
-        socket.emit("join-game", gameCode, level)
+        socket.emit("join-game", gameCode, state.username, level)
     }
 
     socket.on("other-joined", (msg) => {

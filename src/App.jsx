@@ -32,6 +32,7 @@ function App() {
       const data = docSnap.data()
       localStorage.setItem("gameLevel", data.level)
       state.resetState({
+        username: data.username,
         highScore: data.highScore,
         bestTime: data.bestTime,
         level: data.level,
@@ -69,11 +70,8 @@ function App() {
           <Route path="/singleplay" element={
             <GameScreen />
           } />
-          {/* <Route path="/multiplayer" element={
-            <Layout childComp={user ? <Multiplayer /> : <Login />} />
-          } /> */}
           <Route path="/multiplayer" element={
-            <Layout childComp={<Multiplayer />} />
+            <Layout childComp={user ? <Multiplayer /> : <Login />} />
           } />
           <Route path="/new" element={
             <Layout childComp={<NewGameScreen />} />

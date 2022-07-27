@@ -1,6 +1,6 @@
 import { doc, increment, updateDoc } from "firebase/firestore";
 import { toBlob } from 'html-to-image';
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
@@ -14,10 +14,13 @@ import secondsToMinute from "../../utils/secondsToMinute";
 
 function GameOverModal() {
     const [user, loading, error] = useAuthState(auth);
+    const [forceOpenModal, setForceOpenModal] = useState(false)
+    const [opponentTime, setOpponentTime] = useState("")
     const gameID = useId()
     const [playGameOverSound] = useSound(gameOverSound);
     let navigate = useNavigate()
     const state = useStore((state) => state)
+    const socket = useStore((state) => state.socket)
     const imageRef = useRef(null);
 
     const goNextLevel = () => {
@@ -34,7 +37,7 @@ function GameOverModal() {
             ],
             title: 'Play Object Finder Game',
             text: 'Play Object Finder Game',
-            url: 'https://play-object-finder.com'
+            url: import.meta.env.VITE_CLIENT_URL
         };
 
         try {
@@ -48,96 +51,232 @@ function GameOverModal() {
         }
     }
 
+    socket.on("over-show", time => {
+        setOpponentTime(time)
+    })
 
 
     useEffect(() => {
-        if (state.gameOver != true && state.targetItems[`level${state.level}`].length == 0) {
-            console.log("Valo Over")
-            state.isSound ? playGameOverSound() : null
+        if (state.gameOver != true & state.targetItems[`level${state.level}`].length == 0) {
+            // When Every target items are finished.
             state.setGameOver(true)
-        }
 
-        // Win Condition
-        if (state.gameOver == true && state.targetItems[`level${state.level}`].length == 0) {
-            console.log("Win")
-            if (user) {
-                const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
-                const gameID = generateRandom()
+            // if (state.score == globalVariable.maxScore) {
+            //     // Win Condition
+            //     state.isSound ? playGameOverSound() : null
+            //     console.log("Win")
+            //     if (user) {
+            //         const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+            //         const gameID = generateRandom()
 
-                const updateWindDoc = async () => {
-                    await updateDoc(gamePlayedRef, {
-                        totalScore: increment(state.score),
-                        totalTime: increment(state.time),
-                        winCount: increment(1),
-                        totalMatch: increment(1),
-                        highScore: state.score > state.highScore ? state.score : increment(0),
-                        bestTime: state.time > state.bestTime ? state.time : increment(0),
-                        [`gamePlayed.${gameID}`]: {
-                            level: state.level,
-                            score: state.score,
-                            time: state.time,
-                            hintTook: state.hintTook,
-                            gameWon: true,
-                            createdAt: Date.now()
-                        }
-                    });
-                }
-                state.time != "init" ? updateWindDoc() : null
+            //         const updateWindDoc = async () => {
+            //             await updateDoc(gamePlayedRef, {
+            //                 totalScore: increment(state.score),
+            //                 totalTime: increment(state.time),
+            //                 winCount: increment(1),
+            //                 totalMatch: increment(1),
+            //                 highScore: state.score > state.highScore ? state.score : increment(0),
+            //                 bestTime: state.time > state.bestTime ? state.time : increment(0),
+            //                 [`gamePlayed.${gameID}`]: {
+            //                     level: state.level,
+            //                     score: state.score,
+            //                     opponentScore: 0,
+            //                     time: state.time,
+            //                     hintTook: state.hintTook,
+            //                     gameWon: true,
+            //                     gameMode: state.gameMode,
+            //                     createdAt: Date.now()
+            //                 }
+            //             });
+            //         }
+            //         state.time != "init" ? updateWindDoc() : null
 
-                if (state.level != state.maxLevel) {
-                    const updateLeveldDoc = async () => {
+            //         if (state.level != state.maxLevel & state.gameMode == "singleplayer") {
+            //             const updateLeveldDoc = async () => {
+            //                 await updateDoc(gamePlayedRef, {
+            //                     level: increment(1)
+            //                 })
+            //             }
+            //             state.time != "init" ? updateLeveldDoc() : null
+            //         }
+            //     }
+
+            //     if (state.level != state.maxLevel & state.gameMode == "singleplayer") {
+            //         // state.addLevel()
+            //         localStorage.setItem("gameLevel", parseInt(state.level) + 1)
+            //     }
+            // }
+            // else {
+            //     if (state.gameMode == "singleplayer") {
+            //         if (user) {
+            //             const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+            //             const gameID = generateRandom()
+
+            //             const updateLostdDoc = async () => {
+            //                 await updateDoc(gamePlayedRef, {
+            //                     totalScore: increment(state.score),
+            //                     totalTime: increment(state.time),
+            //                     totalMatch: increment(1),
+            //                     highScore: state.score > state.highScore ? state.score : increment(0),
+            //                     bestTime: state.time > state.bestTime ? state.time : increment(0),
+            //                     [`gamePlayed.${gameID}`]: {
+            //                         level: state.level,
+            //                         score: state.score,
+            //                         opponentScore: 0,
+            //                         time: state.time,
+            //                         hintTook: state.hintTook,
+            //                         gameWon: false,
+            //                         gameMode: state.gameMode,
+            //                         createdAt: Date.now()
+            //                     }
+            //                 });
+            //             }
+
+            //             state.time != "init" ? updateLostdDoc() : null
+            //         }
+            //     } else if (state.gameMode == "multiplayer") {
+            //         if (user) {
+            //             console.log("Multiplayer Lost")
+            //             const opponentScore = (globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)
+            //             // let gameWon = ""
+            //             // let opponentTime = ""
+
+            //             // socket.on("show-time", time => {
+            //             //     opponentTime = time
+            //             // })
+
+            //             // if (state.score > opponentScore) {
+            //             //     gameWon = true
+            //             // } else if (state.score == opponentScore) {
+            //             //     console.log(opponentTime)
+            //             //     if (state.time < opponentTime) {
+            //             //         gameWon = true
+            //             //     } else {
+            //             //         gameWon = false
+            //             //     }
+            //             // } else {
+            //             //     gameWon = false
+            //             // }
+
+            //             const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+            //             const gameID = generateRandom()
+
+            //             const updateLostdDoc = async () => {
+            //                 await updateDoc(gamePlayedRef, {
+            //                     totalScore: increment(state.score),
+            //                     totalTime: increment(state.time),
+            //                     totalMatch: increment(1),
+            //                     highScore: state.score > state.highScore ? state.score : increment(0),
+            //                     bestTime: state.time > state.bestTime ? state.time : increment(0),
+            //                     [`gamePlayed.${gameID}`]: {
+            //                         level: state.level,
+            //                         score: state.score,
+            //                         opponentScore: opponentScore,
+            //                         time: state.time,
+            //                         hintTook: state.hintTook,
+            //                         gameWon: state.gameWon,
+            //                         gameMode: state.gameMode,
+            //                         createdAt: Date.now()
+            //                     }
+            //                 });
+            //             }
+
+            //             console.log("The time is: ", state.time)
+            //             state.time != "init" ? updateLostdDoc() : null
+            //         }
+            //     }
+            // }
+
+        } else if (state.gameOver == true) {
+            // When Target items left and time is finished.
+
+            if (state.gameMode == "singleplayer") {
+                if (user) {
+                    const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+                    const gameID = generateRandom()
+
+                    const updateLostdDoc = async () => {
                         await updateDoc(gamePlayedRef, {
-                            level: increment(1)
-                        })
+                            totalScore: increment(state.score),
+                            totalTime: increment(state.time),
+                            totalMatch: increment(1),
+                            highScore: state.score > state.highScore ? state.score : increment(0),
+                            bestTime: state.time > state.bestTime ? state.time : increment(0),
+                            [`gamePlayed.${gameID}`]: {
+                                level: state.level,
+                                score: state.score,
+                                opponentScore: 0,
+                                time: state.time,
+                                hintTook: state.hintTook,
+                                gameWon: false,
+                                gameMode: state.gameMode,
+                                createdAt: Date.now()
+                            }
+                        });
                     }
-                    state.time != "init" ? updateLeveldDoc() : null
+
+                    state.time != "init" ? updateLostdDoc() : null
                 }
-            }
+            } else if (state.gameMode == "multiplayer") {
+                if (user) {
+                    console.log("Multiplayer Lost")
+                    const opponentScore = (globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)
+                    let gameWon = ""
 
-            if (state.level != state.maxLevel) {
-                // state.addLevel()
-                localStorage.setItem("gameLevel", parseInt(state.level) + 1)
-            }
-
-
-            // Lost Condition
-        } else if (state.gameOver == true && state.targetItems[`level${state.level}`].length != 0) {
-            console.log("Lost")
-            if (user) {
-                const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
-                const gameID = generateRandom()
-
-                const updateLostdDoc = async () => {
-                    await updateDoc(gamePlayedRef, {
-                        totalScore: increment(state.score),
-                        totalTime: increment(state.time),
-                        totalMatch: increment(1),
-                        highScore: state.score > state.highScore ? state.score : increment(0),
-                        bestTime: state.time > state.bestTime ? state.time : increment(0),
-                        [`gamePlayed.${gameID}`]: {
-                            level: state.level,
-                            score: state.score,
-                            time: state.time,
-                            hintTook: state.hintTook,
-                            gameWon: false,
-                            createdAt: Date.now()
+                    if (state.score > opponentScore) {
+                        gameWon = true
+                    } else if (state.score == opponentScore) {
+                        console.log(opponentTime)
+                        if (state.time < opponentTime) {
+                            gameWon = true
+                        } else {
+                            gameWon = false
                         }
-                    });
-                }
+                    } else {
+                        gameWon = false
+                    }
 
-                state.time != "init" ? updateLostdDoc() : null
+                    const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
+                    const gameID = generateRandom()
+
+                    const updateLostdDoc = async () => {
+                        console.log("The time is: ", state.time)
+                        await updateDoc(gamePlayedRef, {
+                            totalScore: increment(state.score),
+                            totalTime: increment(state.time),
+                            totalMatch: increment(1),
+                            highScore: state.score > state.highScore ? state.score : increment(0),
+                            bestTime: state.time > state.bestTime ? state.time : increment(0),
+                            [`gamePlayed.${gameID}`]: {
+                                level: state.level,
+                                score: state.score,
+                                opponentScore: opponentScore,
+                                time: state.time,
+                                hintTook: state.hintTook,
+                                gameWon: gameWon,
+                                gameMode: state.gameMode,
+                                createdAt: Date.now()
+                            }
+                        });
+                    }
+                    // console.log("In Effect time is: ", state.time)
+                    state.time != "init" ? updateLostdDoc() : null
+                }
             }
         }
-    }, [state.targetItems, state.gameOver, state.time]);
+    }, [state.targetItems, state.time]);
 
     return (
-        <div id="popup-modal" className={`absolute inset-0 ${state.gameOver == true ? "slide-in-top" : state.gameOver == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">
+        <div id="popup-modal" className={`absolute inset-0 ${(state.gameOver == true || forceOpenModal == true) ? "slide-in-top" : (state.gameOver == false || forceOpenModal == false) ? "-top-[100%]" : "hidden"
+            } font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">
             <div className="relative p-4 w-1/2 max-w-md h-full md:h-auto" ref={imageRef}>
                 <div className="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
                     <div className="py-12 pl-4 text-center mt-4 flex flex-col justify-between">
                         <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
                         <h1 className="text-gray-100 text-2xl mb-2">Your Score: {state.score}</h1>
-                        <h1 className="text-gray-100 text-2xl">Total Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
+                        <h1 className="text-gray-100 text-2xl mb-2">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
+                        <h1 className="text-gray-100 text-2xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
+                        <h1 className="text-gray-100 text-2xl">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
                         <div className="flex items-center justify-center gap-4 mt-8">
                             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                 <Link to="/">Menu</Link>

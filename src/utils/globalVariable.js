@@ -1,4 +1,4 @@
 export default {
     maxScore: 6,
-    maxTime: 360
+    maxTime: 180
 }

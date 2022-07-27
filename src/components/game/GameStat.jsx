@@ -10,24 +10,27 @@ function GameStat() {
     const socket = useStore((state) => state.socket)
 
     useEffect(() => {
-        socket.on("show-score", (targetID, item) => {
-            setAddOpponentScore(prevState => prevState + 1)
-            state.removeTargetItem(state.level, getFilename(item))
-            const targetEl = document.getElementById(targetID)
-
-            targetEl.classList.add("bounce-out-top")
-
-            setTimeout(function () {
-                targetEl.style.visibility = "hidden"
-                targetEl.style.opacity = 0
+        console.log("In Stat")
+        if (state.gameMode == "multiplayer") {
+            console.log("Show-Score")
+            socket.on("show-score", (targetID, item) => {
+                setAddOpponentScore(prevState => prevState + 1)
                 state.removeTargetItem(state.level, getFilename(item))
-            }, 400);
-        })
+                const targetEl = document.getElementById(targetID)
 
-        return () => {
-            socket.remove("show-score")
+                targetEl.classList.add("bounce-out-top")
+
+                setTimeout(function () {
+                    targetEl.style.visibility = "hidden"
+                    targetEl.style.opacity = 0
+                    state.removeTargetItem(state.level, getFilename(item))
+                }, 400);
+            })
+            return () => {
+                socket.remove("show-score")
+            }
         }
-    }, [socket]);
+    }, [state.gameMode, socket]);
 
 
     return (

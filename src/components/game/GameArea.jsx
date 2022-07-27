@@ -25,7 +25,7 @@ function GameArea() {
             vanishEl.style.top = `${e.target.y - (e.target.height + 20)}px`
             vanishEl.classList.remove("hidden")
             e.target.classList.add("bounce-out-top")
-            // toast.success('Correct! Got 1 Point.')            
+
             if (state.gameMode == "multiplayer") {
                 console.log("Socket Emit Add: ", e.target)
                 socket.emit("add-score", state.gameCode, e.target.id, item)
@@ -37,6 +37,9 @@ function GameArea() {
                 state.removeTargetItem(state.level, getFilename(item))
                 state.addScore()
 
+                // if (state.targetItems[`level${state.level}`].length == 1) {
+                //     state.setGameOver(true)
+                // }
 
                 setTimeout(function () {
                     vanishEl.classList.add("hidden")

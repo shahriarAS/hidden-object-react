@@ -4,12 +4,13 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { io } from "socket.io-client";
 import create from 'zustand';
 import generatePosition from '../utils/generatePosition';
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_SOCKET_SERVER_URL);
 console.log(socket.id)
 
 const initialState = {
     socket: socket,
-    gameMode: "singleplay",
+    username: "",
+    gameMode: "singleplayer",
     gameCode: "",
     score: 0,
     opponentScore: 0,

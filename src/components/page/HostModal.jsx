@@ -25,7 +25,7 @@ function HostModal({ openHostModal, setOpenHostModal, setStartGame }) {
 
     const hostGameClick = () => {
         state.setGameCode(gameCode)
-        socket.emit("host-game", gameCode, (hostResponse) => {
+        socket.emit("host-game", gameCode, state.username, (hostResponse) => {
             setHostMsg(hostResponse)
         })
     }

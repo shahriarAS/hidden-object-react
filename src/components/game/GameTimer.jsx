@@ -7,7 +7,8 @@ import globalVariable from '../../utils/globalVariable';
 const GameTimer = () => {
     var time = new Date();
     const state = useStore((state) => state)
-
+    const socket = useStore((state) => state.socket)
+    
     const {
         seconds,
         minutes,
@@ -24,10 +25,15 @@ const GameTimer = () => {
     useEffect(() => {
         if (state.gamePause == true || state.gameOver == true) {
             // Remain Time = Total Time - Passed Time
-            state.setTime(((((globalVariable?.maxTime / 60) - 1) - minutes) * 60) + (60 - seconds))
+            const toShowTime = ((((globalVariable?.maxTime / 60) - 1) - minutes) * 60) + (60 - seconds)
+            state.setTime(toShowTime)
             pause()
+            if (state.gameMode == "multiplayer") {
+                console.log("Emit Game Over")
+                socket.emit("game-over", state.gameCode, `${toShowTime}`)
+            }
             console.log("Now Pause")
-        } else if (state.gamePause != true && state.gameOver != true) {
+        } else if (state.gamePause != true & state.gameOver != true) {
             resume()
             console.log("Now Resume")
         }
