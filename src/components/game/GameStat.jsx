@@ -26,9 +26,9 @@ function GameStat() {
                     state.removeTargetItem(state.level, getFilename(item))
                 }, 400);
             })
-            return () => {
-                socket.remove("show-score")
-            }
+            // return () => {
+            //     socket.remove("show-score")
+            // }
         }
     }, [state.gameMode, socket]);
 
