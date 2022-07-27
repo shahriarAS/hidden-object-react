@@ -286,9 +286,10 @@ function GameOverModal() {
                             ) : (
                                 <>
                                     <h1 className="text-gray-100 text-4xl mb-2">You {thisGameWon ? "Won" : "Lost"}!</h1>
-                                    <h1 className="text-gray-100 text-2xl mb-1">Your Score: {state.score}</h1>
-                                    <h1 className="text-gray-100 text-2xl mb-1">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
-                                    <h1 className="text-gray-100 text-2xl">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
+                                    <h1 className="text-gray-100 text-xl">Your Score: {state.score}</h1>
+                                    <h1 className="text-gray-100 text-xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
+                                    <h1 className="text-gray-100 text-xl">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
+                                    <h1 className="text-gray-100 text-xl">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
                                 </>
 
                             )
