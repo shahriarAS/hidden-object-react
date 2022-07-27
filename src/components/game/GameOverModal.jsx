@@ -16,6 +16,7 @@ function GameOverModal() {
     const [user, loading, error] = useAuthState(auth);
     const [forceOpenModal, setForceOpenModal] = useState(false)
     const [opponentTime, setOpponentTime] = useState("")
+    const [thisGameWon, setThisGameWon] = useState(false)
     const gameID = useId()
     const [playGameOverSound] = useSound(gameOverSound);
     let navigate = useNavigate()
@@ -221,46 +222,49 @@ function GameOverModal() {
                 if (user) {
                     console.log("Multiplayer Lost")
                     const opponentScore = (globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)
-                    let gameWon = ""
 
                     if (state.score > opponentScore) {
-                        gameWon = true
+                        setThisGameWon(true)
                     } else if (state.score == opponentScore) {
                         console.log(opponentTime)
                         if (state.time < opponentTime) {
-                            gameWon = true
+                            setThisGameWon(true)
                         } else {
-                            gameWon = false
+                            setThisGameWon(false)
                         }
                     } else {
-                        gameWon = false
+                        setThisGameWon(false)
                     }
 
                     const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
                     const gameID = generateRandom()
 
-                    const updateLostdDoc = async () => {
-                        console.log("The time is: ", state.time)
-                        await updateDoc(gamePlayedRef, {
-                            totalScore: increment(state.score),
-                            totalTime: increment(state.time),
-                            totalMatch: increment(1),
-                            highScore: state.score > state.highScore ? state.score : increment(0),
-                            bestTime: state.time > state.bestTime ? state.time : increment(0),
-                            [`gamePlayed.${gameID}`]: {
-                                level: state.level,
-                                score: state.score,
-                                opponentScore: opponentScore,
-                                time: state.time,
-                                hintTook: state.hintTook,
-                                gameWon: gameWon,
-                                gameMode: state.gameMode,
-                                createdAt: Date.now()
-                            }
-                        });
+
+                    if (state.gameWon == false) {
+                        const updateLostdDoc = async () => {
+                            // This is just dirty code. Somehow this function is rendering 2 times and unable to fix it. That's why this line to run only one.
+                            state.setGameWon(true)
+                            console.log("The time is: ", state.time)
+                            await updateDoc(gamePlayedRef, {
+                                totalScore: increment(state.score),
+                                totalTime: increment(state.time),
+                                totalMatch: increment(1),
+                                highScore: state.score > state.highScore ? state.score : increment(0),
+                                bestTime: state.time > state.bestTime ? state.time : increment(0),
+                                [`gamePlayed.${gameID}`]: {
+                                    level: state.level,
+                                    score: state.score,
+                                    opponentScore: opponentScore,
+                                    time: state.time,
+                                    hintTook: state.hintTook,
+                                    gameWon: thisGameWon,
+                                    gameMode: state.gameMode,
+                                    createdAt: Date.now()
+                                }
+                            });
+                        }
+                        state.time != "init" ? updateLostdDoc() : null
                     }
-                    // console.log("In Effect time is: ", state.time)
-                    state.time != "init" ? updateLostdDoc() : null
                 }
             }
         }
@@ -272,12 +276,24 @@ function GameOverModal() {
             <div className="relative p-4 w-1/2 max-w-md h-full md:h-auto" ref={imageRef}>
                 <div className="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
                     <div className="py-12 pl-4 text-center mt-4 flex flex-col justify-between">
-                        <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
-                        <h1 className="text-gray-100 text-2xl mb-2">Your Score: {state.score}</h1>
-                        <h1 className="text-gray-100 text-2xl mb-2">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
-                        <h1 className="text-gray-100 text-2xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
-                        <h1 className="text-gray-100 text-2xl">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
-                        <div className="flex items-center justify-center gap-4 mt-8">
+                        {
+                            state.gameMode == "singleplayer" ? (
+                                <>
+                                    <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
+                                    <h1 className="text-gray-100 text-xl mb-1">Your Score: {state.score}</h1>
+                                    <h1 className="text-gray-100 text-xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
+                                </>
+                            ) : (
+                                <>
+                                    <h1 className="text-gray-100 text-4xl mb-2">You {thisGameWon ? "Won" : "Lost"}!</h1>
+                                    <h1 className="text-gray-100 text-2xl mb-1">Your Score: {state.score}</h1>
+                                    <h1 className="text-gray-100 text-2xl mb-1">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
+                                    <h1 className="text-gray-100 text-2xl">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
+                                </>
+
+                            )
+                        }
+                        <div className="flex items-center justify-center gap-4 mt-4">
                             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                 <Link to="/">Menu</Link>
                             </button>
