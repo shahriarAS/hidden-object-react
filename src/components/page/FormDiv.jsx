@@ -1,4 +1,6 @@
-function FormDiv({ label, icon, icon2, error, children }) {
+
+function FormDiv({ setShowPass, label, icon, icon2, error, children }) {
+
     return (
         <div className="register-div">
             <p className="register-input bg-transparent-label text-md ml-2">
@@ -11,7 +13,7 @@ function FormDiv({ label, icon, icon2, error, children }) {
                 <div className="register-input text-xl mx-2">
                     {children}
                 </div>
-                <div className="register-icon text-xl">
+                <div className="register-icon text-xl" onClick={() => setShowPass(prevState => !prevState)}>
                     {icon2}
                 </div>
             </div>

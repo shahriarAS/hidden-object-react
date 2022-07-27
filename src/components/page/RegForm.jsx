@@ -1,15 +1,16 @@
 import { createUserWithEmailAndPassword, deleteUser, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { useId } from "react";
+import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaLock, FaRegEnvelope, FaRegEye, FaUserCircle } from "react-icons/fa";
+import { FaLock, FaRegEnvelope, FaRegEye, FaRegEyeSlash, FaUserCircle } from "react-icons/fa";
 import FormDiv from "../../components/page/FormDiv";
 import { auth, db } from "../../config/firebaseConfig.js";
 import useResetState from "../../hooks/useResetState";
 
 
 function RegForm() {
+    const [showPass, setShowPass] = useState(false)
     const resetState = useResetState()
     const randomGameId = useId()
     const { register, handleSubmit, formState: { errors } } = useForm(
@@ -99,9 +100,9 @@ function RegForm() {
 
             </FormDiv>
 
-            <FormDiv label="Password" icon={<FaLock />} icon2={<FaRegEye />} error={errors.password?.message}>
+            <FormDiv setShowPass={setShowPass} label="Password" icon={<FaLock />} icon2={showPass ? <FaRegEyeSlash /> : <FaRegEye />} error={errors.password?.message}>
 
-                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type="password" className="w-full bg-transparent" />
+                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type={showPass ? "text" : "password"} className="w-full bg-transparent" />
 
             </FormDiv>
 

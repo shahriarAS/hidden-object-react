@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaLock, FaRegEnvelope, FaRegEye } from "react-icons/fa";
+import { FaLock, FaRegEnvelope, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FormDiv from "../../components/page/FormDiv";
 import { auth, db } from "../../config/firebaseConfig";
@@ -12,6 +13,7 @@ import useStore from "../../store";
 
 
 function LoginForm() {
+    const [showPass, setShowPass] = useState(false)
     const state = useStore((state) => state)
     const resetState = useResetState()
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -63,9 +65,9 @@ function LoginForm() {
 
             </FormDiv>
 
-            <FormDiv label="Password" icon={<FaLock />} icon2={<FaRegEye />} error={errors.password?.message}>
+            <FormDiv setShowPass={setShowPass} label="Password" icon={<FaLock />} icon2={showPass ? <FaRegEyeSlash /> : <FaRegEye />} error={errors.password?.message}>
 
-                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type="password" className="w-full bg-transparent" />
+                <input {...register("password", { required: "Password is required", minLength: { value: 6, message: "Atleast 6 character long" } })} type={showPass ? "text" : "password"} className="w-full bg-transparent" />
 
             </FormDiv>
 
