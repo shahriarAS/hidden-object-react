@@ -24,10 +24,12 @@ function HostModal({ openHostModal, setOpenHostModal, setStartGame }) {
     }
 
     const hostGameClick = () => {
-        state.setGameCode(gameCode)
-        socket.emit("host-game", gameCode, state.username, (hostResponse) => {
-            setHostMsg(hostResponse)
-        })
+        if (gameCode.trim().length > 0) {
+            state.setGameCode(gameCode)
+            socket.emit("host-game", gameCode, state.username, (hostResponse) => {
+                setHostMsg(hostResponse)
+            })
+        }
     }
 
     socket.on("other-joined", (msg, gameLevel) => {

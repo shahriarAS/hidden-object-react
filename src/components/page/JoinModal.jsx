@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { GrClose } from "react-icons/gr";
 import useStore from "../../store";
 import generateRandomInRange from "../../utils/generateRandomInRange";
@@ -16,10 +17,18 @@ function JoinModal({ openJoinModal, setOpenJoinModal, setStartGame }) {
     }
 
     const joinGameClick = () => {
-        state.setGameCode(gameCode)
-        const level = generateRandomInRange(1, 8)
-        state.setLevel(level)
-        socket.emit("join-game", gameCode, state.username, level)
+        if (gameCode.trim().length > 0) {
+            state.setGameCode(gameCode)
+            const level = generateRandomInRange(1, 8)
+            state.setLevel(level)
+            socket.emit("join-game", gameCode, state.username, level, joinResponse => {
+                joinResponse && toast.error(joinResponse)
+            })
+        } else {
+            toast.error("Empty Game Code. Please provide valid code.", {
+                duration: 800
+            })
+        }
     }
 
     socket.on("other-joined", (msg) => {
