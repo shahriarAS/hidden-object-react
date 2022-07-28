@@ -51,7 +51,7 @@ function GamePauseModal() {
     return (
         <div id="popup-modal" className={`absolute inset-0 ${state.gamePause == true ? "slide-in-top" : state.gamePause == false ? "-top-[100%]" : "hidden"} font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">
             <div className="relative p-4 w-96 h-3/4">
-                <div className="relative w-full h-full rounded-lg bg-cover bg-center bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
+                <div className="relative w-full h-full rounded-lg bg-cover bg-center bg-no-repeat pt-4" style={{ backgroundImage: `url(${statBG})` }}>
                     <button type="button" className="absolute bg-transparent top-3 -right-2" onClick={() => {
                         // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
                         state.setReduceTime(0)
@@ -59,9 +59,9 @@ function GamePauseModal() {
                     }}>
                         <img src={close} alt="" />
                     </button>
-                    <div className="p-6 mt-12 text-center flex flex-col justify-between">
+                    <div className="p-6 mt-12 text-center flex flex-col gap-2 justify-between items-center">
                         <h1 className="text-gray-100 text-6xl mt-1 mb-2">Paused</h1>
-                        <h1 className="text-gray-100 text-3xl mt-12">Your Score: {state.score}</h1>
+                        <h1 className="text-gray-100 text-3xl mt-4">Your Score: {state.score}</h1>
                         <h1 className="text-gray-100 text-3xl">Total Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                         <div className="control-panel flex justify-center gap-4 my-2 mt-4">
                             {
@@ -71,9 +71,9 @@ function GamePauseModal() {
                                 state.isMusic ? (<img onClick={toggleMusicSetting} src={music1} width={40} alt="Music" className="cursor-pointer" />) : (<img onClick={toggleMusicSetting} src={music2} width={40} alt="No Music" className="cursor-pointer" />)
                             }
                         </div>
-                        <div className="flex gap-4 mt-2">
-                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl"><Link to="/">Menu</Link></button>
-                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-8 py-2.5 mr-2 mb-2 text-xl" onClick={gameContinue}>Continue</button>
+                        <div className="flex justify-between items-center gap-4 mt-2">
+                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-xl py-2.5 w-36"><Link to="/">Menu</Link></button>
+                            <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-xl py-2.5 w-36" onClick={gameContinue}>Continue</button>
 
                         </div>
                     </div>
