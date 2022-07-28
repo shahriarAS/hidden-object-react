@@ -38,6 +38,8 @@ const initialState = {
             { file: "1_4", position: [66, 8] },
             { file: "1_5", position: [54, 65] },
             { file: "1_6", position: [69, 30] },
+            { file: "2_14", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_15", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
         level2: [
             { file: "2_1", position: [10, 50] },
@@ -46,6 +48,8 @@ const initialState = {
             { file: "2_4", position: [15, 34] },
             { file: "2_5", position: [77, 24] },
             { file: "2_6", position: [79, 42] },
+            { file: "2_18", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_19", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
         level3: [
             { file: "1_7", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
@@ -54,6 +58,8 @@ const initialState = {
             { file: "1_10", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_11", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_12", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_22", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_23", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
         level4: [
             { file: "2_7", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
@@ -62,6 +68,8 @@ const initialState = {
             { file: "2_10", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "2_11", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "2_12", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_26", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_27", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
         level5: [
             { file: "1_13", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
@@ -70,6 +78,8 @@ const initialState = {
             { file: "1_16", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_17", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_18", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_10", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "1_11", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
         level6: [
             { file: "1_19", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
@@ -78,6 +88,8 @@ const initialState = {
             { file: "1_22", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_23", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_24", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_22", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_23", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
         level7: [
             { file: "1_25", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
@@ -86,6 +98,8 @@ const initialState = {
             { file: "1_28", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "1_29", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
             { file: "2_13", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_11", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
+            { file: "2_12", position: [generatePosition(90, 90).x, generatePosition(90, 90).y] },
         ],
     },
 }

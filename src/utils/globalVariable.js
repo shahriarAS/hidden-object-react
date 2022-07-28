@@ -1,5 +1,5 @@
 export default {
-    maxScore: 6,
-    maxTime: 180,
-    maxHint: 2,
+    maxScore: 8,
+    maxTime: 240,
+    maxHint: 3,
 }
