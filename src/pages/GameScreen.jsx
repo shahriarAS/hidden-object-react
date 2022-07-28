@@ -71,14 +71,16 @@ function GameScreen() {
     }, [state.showHint]);
 
     return (
-        <div ref={appRef} className="game-screen w-4/5 max-w-[1100px] h-[605px] max-h-[800px] m-auto flex items-center justify-center overflow-hidden" style={{ backgroundImage: `url(${wood})` }}>
-            <div className="game-options px-4 mr-1 h-full flex bg-no-repeat bg-cover" style={{ backgroundImage: `url(${controlBG})` }}>
-                <GameTargetItems />
+        <div style={{ backgroundImage: `url(${wood})` }}>
+            <div ref={appRef} className="game-screen w-4/5 max-w-[1100px] h-[605px] max-h-[800px] m-auto flex items-center justify-center overflow-hidden">
+                <div className="game-options px-4 mr-1 h-full flex bg-no-repeat bg-cover" style={{ backgroundImage: `url(${controlBG})` }}>
+                    <GameTargetItems />
+                </div>
+                <GameArea />
+                <GameOptions goFullScreen={goFullScreen} closeScreen={closeScreen} />
+                <GamePauseModal />
+                <GameOverModal />
             </div>
-            <GameArea />
-            <GameOptions goFullScreen={goFullScreen} closeScreen={closeScreen} />
-            <GamePauseModal />
-            <GameOverModal />
         </div>
     );
 }

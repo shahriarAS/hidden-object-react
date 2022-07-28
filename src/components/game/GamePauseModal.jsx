@@ -59,8 +59,8 @@ function GamePauseModal() {
                     }}>
                         <img src={close} alt="" />
                     </button>
-                    <div className="p-6 mt-14 text-center flex flex-col justify-between">
-                        <h1 className="text-gray-100 text-6xl mb-2">Paused</h1>
+                    <div className="p-6 mt-12 text-center flex flex-col justify-between">
+                        <h1 className="text-gray-100 text-6xl mt-1 mb-2">Paused</h1>
                         <h1 className="text-gray-100 text-3xl mt-12">Your Score: {state.score}</h1>
                         <h1 className="text-gray-100 text-3xl">Total Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                         <div className="control-panel flex justify-center gap-4 my-2 mt-4">

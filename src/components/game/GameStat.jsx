@@ -61,10 +61,6 @@ function GameStat() {
                 <p>{state.level}/{state.maxLevel}</p>
                 </div>
             </div>
-            {/* <div className="control-btn bg-contain bg-no-repeat w-24 h-24 pt-4 flex flex-col items-center text-center text-white font-bubblegum text-xl" style={{ backgroundImage: `url(${statBarBG})` }}>
-                <p>Level:</p>
-                <p>{state.level}/{state.maxLevel}</p>
-            </div> */}
         </>
     );
 }
