@@ -12,7 +12,7 @@ import HomePage from './pages/HomePage';
 import Leaderboard from "./pages/Leaderboard";
 import Login from './pages/Login';
 import Multiplayer from "./pages/Multiplayer";
-import NewGameScreen from './pages/NewGameScreen';
+// import NewGameScreen from './pages/NewGameScreen';
 import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
@@ -73,9 +73,9 @@ function App() {
           <Route path="/multiplayer" element={
             <Layout childComp={user ? <Multiplayer /> : <Login />} />
           } />
-          <Route path="/new" element={
+          {/* <Route path="/new" element={
             <Layout childComp={<NewGameScreen />} />
-          } />
+          } /> */}
           <Route path="/register" element={
             <Layout childComp={user ? <HomePage /> : <Register />} />
           } />

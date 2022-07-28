@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
-import statBG from "../../assets/images/stat-bg.png";
+import statBarBG from "../../assets/images/stat-bar-bg.png";
 import useStore from "../../store";
 import globalVariable from '../../utils/globalVariable';
 
@@ -8,7 +8,7 @@ const GameTimer = () => {
     var time = new Date();
     const state = useStore((state) => state)
     const socket = useStore((state) => state.socket)
-    
+
     const {
         seconds,
         minutes,
@@ -43,10 +43,12 @@ const GameTimer = () => {
 
     return (
         <>
-            <div className="control-btn bg-contain bg-no-repeat w-24 h-24 pt-4 flex flex-col items-center text-center text-white font-bubblegum text-xl" style={{ backgroundImage: `url(${statBG})` }}>
-                <p>Time:</p>
-                <p>{minutes}:{seconds}</p>
-                {/* {state.reduceTime ? restart(time.setSeconds(time.getSeconds() - (((2 - minutes) * 60) + (60 - seconds) + 10))) : null} */}
+            <div className="relative control-btn bg-cover bg-center bg-no-repeat w-32 h-20 flex flex-col items-center justify-center text-center text-white font-bubblegum text-lg">
+                <img src={statBarBG} alt="" className="aboslute inset-0 w-full h-full" />
+                <div className="absolute ">
+                    <p>Time:</p>
+                    <p>{minutes}:{seconds}</p>
+                </div>
             </div>
         </>
     );

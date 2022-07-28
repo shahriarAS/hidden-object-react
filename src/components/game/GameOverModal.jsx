@@ -62,132 +62,6 @@ function GameOverModal() {
             // When Every target items are finished.
             state.setGameOver(true)
 
-            // if (state.score == globalVariable.maxScore) {
-            //     // Win Condition
-            //     state.isSound ? playGameOverSound() : null
-            //     console.log("Win")
-            //     if (user) {
-            //         const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
-            //         const gameID = generateRandom()
-
-            //         const updateWindDoc = async () => {
-            //             await updateDoc(gamePlayedRef, {
-            //                 totalScore: increment(state.score),
-            //                 totalTime: increment(state.time),
-            //                 winCount: increment(1),
-            //                 totalMatch: increment(1),
-            //                 highScore: state.score > state.highScore ? state.score : increment(0),
-            //                 bestTime: state.time > state.bestTime ? state.time : increment(0),
-            //                 [`gamePlayed.${gameID}`]: {
-            //                     level: state.level,
-            //                     score: state.score,
-            //                     opponentScore: 0,
-            //                     time: state.time,
-            //                     hintTook: state.hintTook,
-            //                     gameWon: true,
-            //                     gameMode: state.gameMode,
-            //                     createdAt: Date.now()
-            //                 }
-            //             });
-            //         }
-            //         state.time != "init" ? updateWindDoc() : null
-
-            //         if (state.level != state.maxLevel & state.gameMode == "singleplayer") {
-            //             const updateLeveldDoc = async () => {
-            //                 await updateDoc(gamePlayedRef, {
-            //                     level: increment(1)
-            //                 })
-            //             }
-            //             state.time != "init" ? updateLeveldDoc() : null
-            //         }
-            //     }
-
-            //     if (state.level != state.maxLevel & state.gameMode == "singleplayer") {
-            //         // state.addLevel()
-            //         localStorage.setItem("gameLevel", parseInt(state.level) + 1)
-            //     }
-            // }
-            // else {
-            //     if (state.gameMode == "singleplayer") {
-            //         if (user) {
-            //             const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
-            //             const gameID = generateRandom()
-
-            //             const updateLostdDoc = async () => {
-            //                 await updateDoc(gamePlayedRef, {
-            //                     totalScore: increment(state.score),
-            //                     totalTime: increment(state.time),
-            //                     totalMatch: increment(1),
-            //                     highScore: state.score > state.highScore ? state.score : increment(0),
-            //                     bestTime: state.time > state.bestTime ? state.time : increment(0),
-            //                     [`gamePlayed.${gameID}`]: {
-            //                         level: state.level,
-            //                         score: state.score,
-            //                         opponentScore: 0,
-            //                         time: state.time,
-            //                         hintTook: state.hintTook,
-            //                         gameWon: false,
-            //                         gameMode: state.gameMode,
-            //                         createdAt: Date.now()
-            //                     }
-            //                 });
-            //             }
-
-            //             state.time != "init" ? updateLostdDoc() : null
-            //         }
-            //     } else if (state.gameMode == "multiplayer") {
-            //         if (user) {
-            //             console.log("Multiplayer Lost")
-            //             const opponentScore = (globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)
-            //             // let gameWon = ""
-            //             // let opponentTime = ""
-
-            //             // socket.on("show-time", time => {
-            //             //     opponentTime = time
-            //             // })
-
-            //             // if (state.score > opponentScore) {
-            //             //     gameWon = true
-            //             // } else if (state.score == opponentScore) {
-            //             //     console.log(opponentTime)
-            //             //     if (state.time < opponentTime) {
-            //             //         gameWon = true
-            //             //     } else {
-            //             //         gameWon = false
-            //             //     }
-            //             // } else {
-            //             //     gameWon = false
-            //             // }
-
-            //             const gamePlayedRef = doc(db, "users", auth.currentUser.uid);
-            //             const gameID = generateRandom()
-
-            //             const updateLostdDoc = async () => {
-            //                 await updateDoc(gamePlayedRef, {
-            //                     totalScore: increment(state.score),
-            //                     totalTime: increment(state.time),
-            //                     totalMatch: increment(1),
-            //                     highScore: state.score > state.highScore ? state.score : increment(0),
-            //                     bestTime: state.time > state.bestTime ? state.time : increment(0),
-            //                     [`gamePlayed.${gameID}`]: {
-            //                         level: state.level,
-            //                         score: state.score,
-            //                         opponentScore: opponentScore,
-            //                         time: state.time,
-            //                         hintTook: state.hintTook,
-            //                         gameWon: state.gameWon,
-            //                         gameMode: state.gameMode,
-            //                         createdAt: Date.now()
-            //                     }
-            //                 });
-            //             }
-
-            //             console.log("The time is: ", state.time)
-            //             state.time != "init" ? updateLostdDoc() : null
-            //         }
-            //     }
-            // }
-
         } else if (state.gameOver == true) {
             // When Target items left and time is finished.
             state.isSound ? playGameOverSound() : null
@@ -290,28 +164,28 @@ function GameOverModal() {
     return (
         <div id="popup-modal" className={`absolute inset-0 ${(state.gameOver == true || forceOpenModal == true) ? "slide-in-top" : (state.gameOver == false || forceOpenModal == false) ? "-top-[100%]" : "hidden"
             } font-bubblegum overflow-y-auto overflow-x-hidden z-50 h-modal h-full justify-center items-center flex bg-blend-overlay bg-white/40 transition-all duration-500`} aria-modal="true" role="dialog">
-            <div className="relative p-4 w-1/2 max-w-md h-full md:h-auto" ref={imageRef}>
-                <div className="relative rounded-lg shadow bg-contain bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
-                    <div className="py-12 pl-4 text-center mt-4 flex flex-col justify-between">
+            <div className="relative p-4 w-96" ref={imageRef}>
+                <div className="relative w-full h-full rounded-lg bg-cover bg-center bg-no-repeat px-12 pt-4" style={{ backgroundImage: `url(${statBG})` }}>
+                    <div className="py-8 pt-10 text-center flex flex-col items-center justify-between">
                         {
                             state.gameMode == "singleplayer" ? (
                                 <>
-                                    <h1 className="text-gray-100 text-4xl mb-2">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
-                                    <h1 className="text-gray-100 text-xl mb-1">Your Score: {state.score}</h1>
-                                    <h1 className="text-gray-100 text-xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
+                                    <h1 className="text-gray-100 text-[2.7rem] mb-8">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
+                                    <h1 className="text-gray-100 text-2xl mb-1">Your Score: {state.score}</h1>
+                                    <h1 className="text-gray-100 text-2xl mb-4">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                                 </>
                             ) : (
                                 <>
-                                    <h1 className="text-gray-100 text-4xl mb-2">You {thisGameWon ? "Won" : "Lost"}!</h1>
-                                    <h1 className="text-gray-100 text-xl">Your Score: {state.score}</h1>
-                                    <h1 className="text-gray-100 text-xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
-                                    <h1 className="text-gray-100 text-xl">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
-                                    <h1 className="text-gray-100 text-xl">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
+                                    <h1 className="text-gray-100 text-5xl mt-16 mb-8">You {thisGameWon ? "Won" : "Lost"}!</h1>
+                                    <h1 className="text-gray-100 text-2xl">Your Score: {state.score}</h1>
+                                    <h1 className="text-gray-100 text-2xl">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
+                                    <h1 className="text-gray-100 text-2xl">Opponent Score: {(globalVariable.maxScore - state.score - state.targetItems[`level${state.level}`].length)}</h1>
+                                    <h1 className="text-gray-100 text-2xl mb-4">Opponent Time: {secondsToMinute(opponentTime).minutes}:{secondsToMinute(opponentTime).seconds}</h1>
                                 </>
 
                             )
                         }
-                        <div className="flex items-center justify-center gap-4 mt-4">
+                        <div className="flex items-center justify-center gap-4 mt-8">
                             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                 <Link to="/">Menu</Link>
                             </button>
@@ -326,7 +200,7 @@ function GameOverModal() {
                                 </button>) : null
                             }
                             {
-                                state.score == globalVariable.maxScore ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
+                                (state.score == globalVariable.maxScore || thisGameWon) ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
                             }
                         </div>
                     </div>

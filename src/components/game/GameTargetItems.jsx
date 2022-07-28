@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import grid from "../../assets/images/grid.png";
+import grid from "../../assets/images/grid.jpg";
 import useStore from "../../store";
 import getFilename from "../../utils/getFilename";
 
