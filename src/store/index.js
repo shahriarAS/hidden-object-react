@@ -23,6 +23,7 @@ const initialState = {
     isSound: localStorage.getItem('isSound') || true,
     isMusic: localStorage.getItem('isMusic') || true,
     difficulty: localStorage.getItem('difficulty') || "normal",
+    isFullScreen: false,
     gameOver: "init",
     gamePause: "init",
     gameWon: false,
@@ -124,7 +125,9 @@ const useStore = create(set => ({
     updateDifficulty: (val) => set(state => ({
         difficulty: val
     })),
-
+    toggleFullScreen: () => set(state => ({
+        isFullScreen: !state.isFullScreen
+    })),
     removeTargetItem: (level, toRemove) => set(state => ({
         targetItems: {
             ...state.targetItems,
