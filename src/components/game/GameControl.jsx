@@ -53,14 +53,18 @@ function GameControl({ goFullScreen, closeScreen }) {
                 <img src={button} alt="" className="aboslute inset-0 w-full h-full" />
                 <p className="absolute">Hint</p>
             </div>
-            <div className="relative control-btn w-32 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl transition-all duration-75 cursor-pointer hover:shadow-2xl hover:scale-105" onClick={() => {
-                // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
-                state.setReduceTime(0)
-                state.setGamePause(true)
-            }}>
-                <img src={button} alt="" className="aboslute inset-0 w-full h-full" />
-                <p className="absolute">Pause</p>
-            </div>
+            {
+                state.gameMode == "singleplayer" ? (
+                    <div className="relative control-btn w-32 h-14 flex items-center justify-center text-center text-white font-bubblegum text-3xl transition-all duration-75 cursor-pointer hover:shadow-2xl hover:scale-105" onClick={() => {
+                        // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
+                        state.setReduceTime(0)
+                        state.setGamePause(true)
+                    }}>
+                        <img src={button} alt="" className="aboslute inset-0 w-full h-full" />
+                        <p className="absolute">Pause</p>
+                    </div>
+                ) : null
+            }
             <GameStat />
             <div className="control-panel flex gap-2 text-2xl">
                 {
