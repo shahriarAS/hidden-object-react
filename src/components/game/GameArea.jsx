@@ -96,7 +96,7 @@ function GameArea() {
             {
                 imgItemState.map(
                     imgItem => (
-                        <HiddenObject key={imgItem.file} img={imgItem.file} top={imgItem.position[0]} left={imgItem.position[1]} removeItem={removeItem} />
+                        <HiddenObject key={`hidden_${imgItem.file}`} img={imgItem.file} top={imgItem.position[0]} left={imgItem.position[1]} removeItem={removeItem} />
                     )
                 )
             }

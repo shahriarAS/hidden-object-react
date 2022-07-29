@@ -104,8 +104,13 @@ function GameOverModal() {
                     }
 
                     if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
-                        state.addLevel()
                         localStorage.setItem("gameLevel", parseInt(state.level) + 1)
+                        // state.addLevel()
+                    }
+                } else {
+                    if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
+                        localStorage.setItem("gameLevel", parseInt(state.level) + 1)
+                        // state.addLevel()
                     }
                 }
             } else if (state.gameMode == "multiplayer") {

@@ -43,6 +43,7 @@ function HostModal({ openHostModal, setOpenHostModal, setStartGame }) {
     socket.on("other-joined", (msg, gameLevel) => {
         setHostMsg(msg)
         state.setLevel(gameLevel)
+        console.log("Joining Game: ", gameLevel)
         setStartGame(true)
     })
 

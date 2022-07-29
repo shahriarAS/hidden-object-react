@@ -57,7 +57,7 @@ function App() {
       state.resetState()
       console.log("state.resetState()")
     }
-  }, [user, state.level]);
+  }, [user]);
 
   return (
     loading ? <Loading /> : (
@@ -71,7 +71,7 @@ function App() {
             <GameScreen />
           } />
           <Route path="/multiplayer" element={
-            <Layout childComp={user ? <Multiplayer /> : <Login />} />
+            user ? <Multiplayer /> : <Layout childComp={<Login />} />
           } />
           {/* <Route path="/new" element={
             <Layout childComp={<NewGameScreen />} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import greyMap from "../assets/images/Page/Leaderboard/grey-map.png";
 import HostModal from "../components/page/HostModal";
@@ -13,12 +13,6 @@ function Multiplayer() {
     const [startGame, setStartGame] = useState(false);
     const [openHostModal, setOpenHostModal] = useState(false);
     const [openJoinModal, setOpenJoinModal] = useState(gameCodeQuery ? true : false);
-
-    useEffect(() => {
-        if (startGame == true) {
-            state.setGameMode("multiplayer")
-        }
-    }, [startGame]);
 
     return (
         startGame ?
