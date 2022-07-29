@@ -17,7 +17,7 @@ function HomePage() {
         <div className='w-full h-full flex flex-col items-center font-bubblegum'>
             <div className="home-banner w-full h-[350px] bg-cover bg-center" style={{ backgroundImage: `url(${bannerBG})` }}>
                 <div className="banner-inner w-full h-full flex items-center justify-center text-white bg-gradient-to-b from-[#a31cf1]/70 to-[#cf7bff]/40">
-                    <h1 className="banner-title text-9xl drop-shadow-2xl">Find Where I Am</h1>
+                    <h1 className="banner-title text-9xl drop-shadow-2xl">Find The Object</h1>
                     {/* <img src={binoImg} alt="Find Where I Am" className='w-32' /> */}
                 </div>
             </div>
@@ -45,14 +45,6 @@ function HomePage() {
                 </Link>
             </div>
         </div>
-        // <div className="text-white text-center w-full">
-        //     <h1 className="text-6xl mb-8">Hidden Object Find!</h1>
-        //     <div className="flex gap-4 items-center justify-center">
-        //         <Link to="/singleplay">
-        //             <button type="button" className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-8 py-2 mb-2 text-xl">Play</button>
-        //         </Link>
-        //     </div>
-        // </div>
     );
 }
 

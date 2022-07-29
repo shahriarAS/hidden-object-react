@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import controlBG from "../assets/images/control-bg.png";
 import wood from "../assets/images/wood_black.jpg";
 import GameArea from "../components/game/GameArea";
+import GameBonusModal from "../components/game/GameBonusModal";
 import GameOptions from "../components/game/GameOptions";
 import GameOverModal from "../components/game/GameOverModal";
 import GamePauseModal from "../components/game/GamePauseModal";
@@ -80,6 +81,7 @@ function GameScreen() {
                 <GameOptions goFullScreen={goFullScreen} closeScreen={closeScreen} />
                 <GamePauseModal />
                 <GameOverModal />
+                <GameBonusModal />
             </div>
         </div>
     );

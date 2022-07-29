@@ -13,6 +13,7 @@ const initialState = {
     gameMode: "singleplayer",
     gameCode: "",
     score: 0,
+    continousScore: 0,
     opponentScore: 0,
     maxLevel: 7,
     hintTook: 0,
@@ -26,6 +27,7 @@ const initialState = {
     isFullScreen: false,
     gameOver: "init",
     gamePause: "init",
+    gameBonus: "init",
     gameWon: false,
     reduceTime: false,
     showHint: false,
@@ -112,8 +114,14 @@ const useStore = create(set => ({
     setGameCode: (val) => set(state => ({
         gameCode: val
     })),
-    addScore: () => set(state => ({
-        score: state.score + 1
+    addScore: (val = 1) => set(state => ({
+        score: state.score + val
+    })),
+    addContinousScore: (val) => set(state => ({
+        continousScore: state.continousScore + val
+    })),
+    resetContinousScore: () => set(state => ({
+        continousScore: 0
     })),
     addOpponentScore: () => set(state => ({
         opponentScore: state.opponentScore + 1
@@ -154,6 +162,9 @@ const useStore = create(set => ({
     })),
     setGamePause: (val) => set(state => ({
         gamePause: val
+    })),
+    setGameBonus: (val) => set(state => ({
+        gameBonus: val
     })),
     setGameWon: (val) => set(state => ({
         gameWon: val

@@ -36,8 +36,8 @@ function GameOverModal() {
                     type: newFile.type,
                 }),
             ],
-            title: 'Play Object Finder Game',
-            text: 'Play Object Finder Game',
+            title: 'Play Find The Object',
+            text: 'Play Find The Object | Online Solo-Multiplayer Game',
             url: import.meta.env.VITE_CLIENT_URL
         };
 
@@ -75,7 +75,7 @@ function GameOverModal() {
                         await updateDoc(gamePlayedRef, {
                             totalScore: increment(state.score),
                             totalTime: increment(state.time),
-                            winCount: (state.score == globalVariable.maxScore) ? increment(1) : increment(0),
+                            winCount: (state.score >= globalVariable.maxScore) ? increment(1) : increment(0),
                             totalMatch: increment(1),
                             highScore: state.score > state.highScore ? state.score : increment(0),
                             bestTime: state.time > state.bestTime ? state.time : increment(0),
@@ -85,7 +85,7 @@ function GameOverModal() {
                                 opponentScore: 0,
                                 time: state.time,
                                 hintTook: state.hintTook,
-                                gameWon: (state.score == globalVariable.maxScore) ? true : false,
+                                gameWon: (state.score >= globalVariable.maxScore) ? true : false,
                                 gameMode: state.gameMode,
                                 createdAt: Date.now()
                             }
@@ -94,7 +94,7 @@ function GameOverModal() {
 
                     state.time != "init" ? updateSingledDoc() : null
 
-                    if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
+                    if (state.level != state.maxLevel & state.score >= globalVariable.maxScore) {
                         const updateLeveldDoc = async () => {
                             await updateDoc(gamePlayedRef, {
                                 level: increment(1)
@@ -103,12 +103,12 @@ function GameOverModal() {
                         state.time != "init" ? updateLeveldDoc() : null
                     }
 
-                    if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
+                    if (state.level != state.maxLevel & state.score >= globalVariable.maxScore) {
                         localStorage.setItem("gameLevel", parseInt(state.level) + 1)
                         // state.addLevel()
                     }
                 } else {
-                    if (state.level != state.maxLevel & state.score == globalVariable.maxScore) {
+                    if (state.level != state.maxLevel & state.score >= globalVariable.maxScore) {
                         localStorage.setItem("gameLevel", parseInt(state.level) + 1)
                         // state.addLevel()
                     }
@@ -120,7 +120,7 @@ function GameOverModal() {
 
                     if (state.score > opponentScore) {
                         setThisGameWon(true)
-                    } else if (state.score == opponentScore) {
+                    } else if (state.score >= opponentScore) {
                         console.log(opponentTime)
                         if (state.time < opponentTime) {
                             setThisGameWon(true)
@@ -175,7 +175,7 @@ function GameOverModal() {
                         {
                             state.gameMode == "singleplayer" ? (
                                 <>
-                                    <h1 className="text-gray-100 text-[2.7rem] mb-8">Game {state.score == globalVariable.maxScore ? "Won" : "Over"}!</h1>
+                                    <h1 className="text-gray-100 text-[2.7rem] mb-8">Game {state.score >= globalVariable.maxScore ? "Won" : "Over"}!</h1>
                                     <h1 className="text-gray-100 text-2xl mb-1">Your Score: {state.score}</h1>
                                     <h1 className="text-gray-100 text-2xl mb-4">Your Time: {secondsToMinute(state.time).minutes}:{secondsToMinute(state.time).seconds}</h1>
                                 </>
@@ -200,12 +200,12 @@ function GameOverModal() {
                                 </button>) : null
                             }
                             {
-                                (state.level != state.maxLevel & state.score == globalVariable.maxScore) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
+                                (state.level != state.maxLevel & state.score >= globalVariable.maxScore) ? (<button type="button" onClick={goNextLevel} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">
                                     Next Level
                                 </button>) : null
                             }
                             {
-                                (state.score == globalVariable.maxScore || thisGameWon) ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
+                                (state.score >= globalVariable.maxScore || thisGameWon) ? <button type="button" onClick={handleShare} className="text-gray-900 bg-gray-200 border border-gray-300 hover:bg-gray-100 font-medium rounded-lg px-4 py-2 mb-2 text-xl">Share</button> : null
                             }
                         </div>
                     </div>
