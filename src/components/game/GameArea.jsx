@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useSound from 'use-sound';
-import rightSound from "../../assets/audio/right.wav";
-import wrongSound from "../../assets/audio/wrong.wav";
+import rightSound from "../../assets/audio/right.mp3";
+import wrongSound from "../../assets/audio/wrong.mp3";
 import bg1 from "../../assets/images/bg1.jpg";
 import vanish from "../../assets/images/vanish.gif";
 import useStore from "../../store";

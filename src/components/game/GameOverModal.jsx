@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
-import gameOverSound from "../../assets/audio/game-over.wav";
+import gameOverSound from "../../assets/audio/game-over.mp3";
 import statBG from "../../assets/images/stat-bg.png";
 import { auth, db } from '../../config/firebaseConfig';
 import useStore from "../../store";
