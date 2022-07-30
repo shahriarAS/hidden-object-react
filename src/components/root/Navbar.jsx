@@ -23,7 +23,9 @@ function Navbar() {
                 <div className="navbar w-full h-16 flex justify-between items-center bg-[#a60cff] text-white px-10 py-4">
                     <div className="left-nav flex justify-between items-center">
                         <div className="nav-item flex items-center justify-between gap-2">
-                            <img src={logo} alt="Find The Object" className='w-40' />
+                            <Link to="/">
+                                <img src={logo} alt="Find The Object" className='w-40' />
+                            </Link>
                         </div>
                     </div>
                     <div className="right-nav flex justify-between items-center gap-8 font-bold text-2xl">

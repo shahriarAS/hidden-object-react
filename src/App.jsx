@@ -7,15 +7,18 @@ import "./App.css";
 import Layout from './components/root/Layout';
 import Loading from "./components/root/Loading";
 import { auth, db } from './config/firebaseConfig.js';
+import About from "./pages/About";
 import GameScreen from "./pages/GameScreen";
 import HomePage from './pages/HomePage';
 import Leaderboard from "./pages/Leaderboard";
 import Login from './pages/Login';
 import Multiplayer from "./pages/Multiplayer";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 // import NewGameScreen from './pages/NewGameScreen';
 import ProfilePage from "./pages/ProfilePage";
 import Register from './pages/Register';
 import Settings from './pages/Settings';
+import TermsCondition from "./pages/TermsCondition";
 import useStore from "./store";
 
 function App() {
@@ -90,6 +93,15 @@ function App() {
           } />
           <Route path="/leaderboard" element={
             <Layout childComp={<Leaderboard />} />
+          } />
+          <Route path="/page/about" element={
+            <Layout childComp={<About />} />
+          } />
+          <Route path="/page/terms-condition" element={
+            <Layout childComp={<TermsCondition />} />
+          } />
+          <Route path="/page/privacy-policy" element={
+            <Layout childComp={<PrivacyPolicy />} />
           } />
           <Route path="*" element={
             <Layout childComp={<h1>404 Not Found</h1>} />

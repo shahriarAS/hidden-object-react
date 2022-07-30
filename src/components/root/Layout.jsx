@@ -1,10 +1,12 @@
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 
-function Layout({childComp}) {
+function Layout({ childComp }) {
     return (
         <>
             <Navbar />
             {childComp}
+            <Footer />
         </>
     );
 }
