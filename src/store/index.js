@@ -5,7 +5,6 @@ import { io } from "socket.io-client";
 import create from 'zustand';
 import generatePosition from '../utils/generatePosition';
 const socket = io(import.meta.env.VITE_SOCKET_SERVER_URL);
-console.log(socket.id)
 
 const initialState = {
     socket: socket,
@@ -28,6 +27,7 @@ const initialState = {
     gameOver: "init",
     gamePause: "init",
     gameBonus: "init",
+    gameStart: "init",
     gameWon: false,
     reduceTime: false,
     showHint: false,
@@ -165,6 +165,9 @@ const useStore = create(set => ({
     })),
     setGameBonus: (val) => set(state => ({
         gameBonus: val
+    })),
+    setGameStart: (val) => set(state => ({
+        gameStart: val
     })),
     setGameWon: (val) => set(state => ({
         gameWon: val

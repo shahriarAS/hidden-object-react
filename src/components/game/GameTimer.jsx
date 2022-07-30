@@ -23,7 +23,7 @@ const GameTimer = () => {
     }
 
     useEffect(() => {
-        if (state.gamePause == true || state.gameOver == true || state.gameBonus == true) {
+        if (state.gamePause == true || state.gameOver == true || state.gameBonus == true || state.gameStart == true) {
             // Remain Time = Total Time - Passed Time
             const toShowTime = ((((globalVariable?.maxTime / 60) - 1) - minutes) * 60) + (60 - seconds)
             state.setTime(toShowTime)
@@ -33,13 +33,13 @@ const GameTimer = () => {
                 socket.emit("game-over", state.gameCode, `${toShowTime}`)
             }
             console.log("Now Pause")
-        } else if (state.gamePause != true & state.gameOver != true & state.gameBonus != true) {
+        } else if (state.gamePause != true & state.gameOver != true & state.gameBonus != true & state.gameStart != true) {
             resume()
             console.log("Now Resume")
         }
         // Reduce Time Problem Fixed. Warning! Don't touch without prior knowledge
         state.reduceTime != 0 ? reduceTimeFunc() : null
-    }, [state.gamePause, state.gameOver, state.gameBonus, state.reduceTime]);
+    }, [state.gamePause, state.gameOver, state.gameBonus, state.gameStart, state.reduceTime]);
 
     return (
         <>

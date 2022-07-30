@@ -7,6 +7,7 @@ import GameBonusModal from "../components/game/GameBonusModal";
 import GameOptions from "../components/game/GameOptions";
 import GameOverModal from "../components/game/GameOverModal";
 import GamePauseModal from "../components/game/GamePauseModal";
+import GameStartModal from "../components/game/GameStartModal";
 import GameTargetItems from "../components/game/GameTargetItems";
 import useStore from "../store/index";
 import globalVariable from "../utils/globalVariable";
@@ -68,6 +69,10 @@ function GameScreen() {
     }
 
     useEffect(() => {
+        if (state.gameStart == "init" & state.gameMode == "singleplayer") {
+            console.log("Game Start")
+            state.setGameStart(true)
+        }
         state.showHint ? hintExecute() : null
     }, [state.showHint]);
 
@@ -82,6 +87,7 @@ function GameScreen() {
                 <GamePauseModal />
                 <GameOverModal />
                 <GameBonusModal />
+                {state.gameMode == "singleplayer" ? <GameStartModal /> : null}
             </div>
         </div>
     );
