@@ -27,6 +27,9 @@ This is the frontend part of **[Find The Object](https://github.com/shahriar-pro
 **Game Screen**
 ![Game Screen](https://i.postimg.cc/Fz7bQv9p/Screenshot-2022-10-26-Find-The-Object-Online-Solo-Multiplayer-Game-3.png)
 
+**How To Play**
+![How To Play](https://i.postimg.cc/7Y1bX6rk/Find-The-Element-on-the-game-screen.png)
+
 **Game Screen Paused**
 ![Game Screen Paused](https://i.postimg.cc/Wz38br7M/Screenshot-2022-10-26-Find-The-Object-Online-Solo-Multiplayer-Game-4.png)
 
