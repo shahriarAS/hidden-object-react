@@ -77,19 +77,27 @@ function GameScreen() {
     }, [state.showHint]);
 
     return (
-        <div style={{ backgroundImage: `url(${wood})` }}>
-            <div ref={appRef} className="game-screen max-w-[1100px] h-screen max-h-[800px] m-auto flex items-center justify-center overflow-hidden">
-                <div className="game-options px-1 mr-1 h-full flex bg-no-repeat bg-cover" style={{ backgroundImage: `url(${controlBG})` }}>
-                    <GameTargetItems />
-                </div>
-                <GameArea />
-                <GameOptions goFullScreen={goFullScreen} closeScreen={closeScreen} />
-                <GamePauseModal />
-                <GameOverModal />
-                <GameBonusModal />
-                {state.gameMode == "singleplayer" ? <GameStartModal /> : null}
+        <>
+            <div className="bg-gray-700 w-[15%]">
+                <p className="flex flex-col text-3xl items-center justify-center h-full">TO PLACE AD</p>
             </div>
-        </div>
+            <div className="h-screen flex items-center m-auto w-[70%]" style={{ backgroundImage: `url(${wood})` }}>
+                <div ref={appRef} className="game-screen max-w-[1100px] m-auto flex items-center justify-center overflow-hidden">
+                    <div className="game-options px-1 mr-1 h-full flex bg-no-repeat bg-cover" style={{ backgroundImage: `url(${controlBG})` }}>
+                        <GameTargetItems />
+                    </div>
+                    <GameArea />
+                    <GameOptions goFullScreen={goFullScreen} closeScreen={closeScreen} />
+                    <GamePauseModal />
+                    <GameOverModal />
+                    <GameBonusModal />
+                    {state.gameMode == "singleplayer" ? <GameStartModal /> : null}
+                </div>
+            </div>
+            <div className="bg-gray-700 w-[15%]">
+                <p className="flex flex-col text-3xl items-center justify-center h-full">TO PLACE AD</p>
+            </div>
+        </>
     );
 }
 

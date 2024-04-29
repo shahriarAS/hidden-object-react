@@ -1,4 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
+import wood from "/src/assets/images/wood_black.jpg";
 import { useEffect } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Toaster } from 'react-hot-toast';
@@ -64,14 +65,16 @@ function App() {
 
   return (
     loading ? <Loading /> : (
-      <div id="app" className="max-w-[1440px] m-auto overflow-x-hidden">
+      <div id="app" className="h-full min-h-screen w-full m-auto overflow-x-hidden">
         <Toaster position="top-center" />
         <Routes>
           <Route path="/" element={
             <Layout childComp={<HomePage />} />
           } />
           <Route path="/singleplay" element={
-            <GameScreen />
+            <div className="flex w-screen">
+              <GameScreen />
+            </div>
           } />
           <Route path="/multiplayer" element={
             user ? <Multiplayer /> : <Layout childComp={<Login />} />

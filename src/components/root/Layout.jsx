@@ -3,11 +3,11 @@ import Navbar from "./Navbar";
 
 function Layout({ childComp }) {
     return (
-        <>
+        <div className="max-w-[1440px] w-full flex flex-col items-center justify-between m-auto h-full">
             <Navbar />
             {childComp}
             <Footer />
-        </>
+        </div>
     );
 }
 
